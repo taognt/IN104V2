@@ -18,6 +18,8 @@ CMakeFiles/sfml-app.dir/src/game.cpp.o: /home/ensta/IN104/repository/src/game.cp
 
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104/repository/inc/CheckPoint.h
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104/repository/inc/example.h
+CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104/repository/inc/game.h
+CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104/repository/inc/pod.h
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104/repository/inc/util.h
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104/repository/src/main.cpp
 

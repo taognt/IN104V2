@@ -55,9 +55,8 @@ void scaleToMaxSize(sf::Sprite &object){
     }
 }
 
-void scaleByRadius(sf::Sprite &object){
+void scaleByRadius(sf::Sprite &object, float radius){
     auto rec = object.getGlobalBounds();
-    float radius = 200;
     float x = rec.width; float y = rec.height;
     float e = y/x;
     float x2 = sqrt( (pow(radius,2)) / (1+pow(e,2)));

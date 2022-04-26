@@ -12,7 +12,7 @@ Pod::Pod(sf::Vector2f pos, float angle, sf::Vector2f vel) : pos_(pos), vel_(vel)
 
 };
 
-Decision Pod::getDecision(Game gameSnapshot) const
+/* Decision Pod::getDecision(Game gameSnapshot) const
 {
     int left, right;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
@@ -24,4 +24,4 @@ Decision Pod::getDecision(Game gameSnapshot) const
     
 
     return Decision({8000, 4500}, 100);
-};
+}; */

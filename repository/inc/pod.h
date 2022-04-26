@@ -18,7 +18,7 @@ class Pod
 {
     public :
     Pod(sf::Vector2f pos, float angle, sf::Vector2f vel = {0, 0});
-    Decision getDecision(Game gameSnapshot) const; 
+    //Decision getDecision(Game gameSnapshot) const; 
 
     private :
     sf::Vector2f pos_, vel_; //position and velocity vectors

@@ -14,15 +14,13 @@ CheckPoint::CheckPoint(sf::Vector2f center, unsigned int id) : circle_(600,100)
     if(id == 0){
         circle_.setFillColor(sf::Color(255,255,255,63));
         fillingText_.setFillColor(sf::Color(255, 255, 255, 63));
-        sf::Texture texture_flag;
-        texture_flag.loadFromFile("/home/ensta/IN104/repository/Images/checkeredFlag.png");
-        sf::Sprite Flag;
-        Flag.setTexture(texture_flag);
+        fillingTexture_.loadFromFile("../repository/Images/checkeredFlag.png");
+        Flag_.setTexture(fillingTexture_);
 
         //Position of the flag :
-        SetOriginToCenterSprite(Flag);
-        Flag.setPosition(center); 
-        Flag_ = Flag;
+        SetOriginToCenterSprite(Flag_);
+        Flag_.setPosition(center); 
+        scaleByRadius(Flag_, 850);
     }
     else{
         circle_.setFillColor(sf::Color(0,0,0,63));
@@ -31,7 +29,9 @@ CheckPoint::CheckPoint(sf::Vector2f center, unsigned int id) : circle_(600,100)
         font_.loadFromFile("../repository/Fredoka-Bold.ttf");
         fillingText_.setCharacterSize(500);
         fillingText_.setFont(font_);
-        fillingText_.setFillColor(sf::Color::Black);
+        fillingText_.setFillColor(sf::Color::White);
+        fillingText_.setOutlineColor(sf::Color::Black);
+        fillingText_.setOutlineThickness(80);
 
         //Position of the text
         sf::FloatRect textRect = fillingText_.getLocalBounds();
@@ -46,10 +46,10 @@ CheckPoint::CheckPoint(sf::Vector2f center, unsigned int id) : circle_(600,100)
 
 void CheckPoint::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    target.draw(Flag_);
     target.draw(circle_, states);
     //setTextCenterPosition(fillingText_, center_);
     target.draw(fillingText_);
-    target.draw(Flag_);
 };
 
 sf::Vector2f CheckPoint::getPosition()
@@ -70,13 +70,20 @@ FinalCheckPoint::FinalCheckPoint(sf::Vector2f center) : circle_(600,100)
     circle_.setFillColor(sf::Color(0,0,0,63));
     circle_.setOutlineColor(sf::Color(0,0,0));
     circle_.setOutlineThickness(-50);
+
+    fillingTexture_.loadFromFile("../repository/Images/checkeredFlag.png");
+    fillingSprite_.setTexture(fillingTexture_);
+    SetOriginToCenterSprite(fillingSprite_);
+    fillingSprite_.setPosition(center);
+    scaleByRadius(fillingSprite_,850);
+
+
 };
 
 void FinalCheckPoint::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(circle_, states);
     target.draw(fillingSprite_, states);
-    target.draw(Flag_);
 };
 
 sf::Vector2f FinalCheckPoint::getPosition()

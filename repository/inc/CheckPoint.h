@@ -22,6 +22,7 @@ class CheckPoint : public sf::Drawable
     sf::Vector2f center_;
     sf::Font font_;
     sf::Sprite Flag_;
+    sf::Texture fillingTexture_;
     sf::Text fillingText_;
 };
 
@@ -37,7 +38,6 @@ class FinalCheckPoint : public sf::Drawable
 
     sf::CircleShape circle_;
     sf::Vector2f center_;
-    sf::Sprite Flag_;
     sf::Texture fillingTexture_;
     sf::Sprite fillingSprite_;
 };

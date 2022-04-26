@@ -16,6 +16,8 @@
 //Checkpoint
 #include "CheckPoint.h"
 
+#include "game.h"
+
 
 const int FPS = 100.0f;
 
@@ -40,7 +42,7 @@ int main()
     window.setView(sf::View(sf::Rect(0.f,0.f,16000.f,9000.f)));
 
 
-    //Set up of the texture
+  /*   //Set up of the texture
     sf::Texture land_texture;
     land_texture.loadFromFile("/home/ensta/IN104/repository/Images/background.png");
 
@@ -50,14 +52,19 @@ int main()
     landscape.setTexture(land_texture);
     auto rec = landscape.getGlobalBounds();
     landscape.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
-
+ */
 
     //CheckPoint
     sf::Vector2f center1(16000/2,9000/2);
-    CheckPoint CP1(center1, 1);
+    //CheckPoint CP1(center1, 1);
 
     sf::Vector2f center2(16000/3,9000/3);
-    CheckPoint CP2(center2, 0);
+    //FinalCheckPoint CP2(center2);
+
+    std::vector<sf::Vector2f> CPs;
+    CPs.push_back(center1);
+    CPs.push_back(center2);
+    Game game(CPs);
     
 //////////////////////////////////////////////////////////////////////////////////
     //Set up of the Cylon
@@ -123,12 +130,14 @@ int main()
 
 
         window.clear();
-        window.draw(landscape);
-        window.draw(Cylon);
-        window.draw(Viper);
-        window.draw(fps_text);
-        window.draw(CP1);
-        window.draw(CP2);
+        window.draw(game);
+        //window.draw(landscape);
+        //window.draw(Cylon);
+        //window.draw(Viper);
+        //window.draw(fps_text);
+        //window.draw(CP1);
+        //window.draw(CPs);
+        //sf::RenderStates states;
         window.display();
     }
 

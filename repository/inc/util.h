@@ -9,7 +9,7 @@
 
 void scaleToMaxSize(sf::Sprite &object);
 void scaleToMinSize(sf::Sprite &object);
-void scaleByRadius(sf::Sprite &object);
+void scaleByRadius(sf::Sprite &object, float radius);
 void SetOriginToCenter(sf::Shape &object);
 void SetOriginToCenterSprite(sf::Sprite &object);
 

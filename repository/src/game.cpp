@@ -10,10 +10,19 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions) : finalCP_(checkpoint
     for(int i = 0;i<L; i++){
         otherCPs_.push_back(CheckPoint(checkpointsPositions[i], i));
     }
+
+    //Background
+    backgroundTexture_.loadFromFile("/home/ensta/IN104/repository/Images/background.png");
+    backgroundSprite_.setTexture(backgroundTexture_);
+    auto rec = backgroundSprite_.getGlobalBounds();
+    backgroundSprite_.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
+
+    //pods
+    //addPod();
     
 }
 
-void Game::addPod()
+/* void Game::addPod()
 {
     //TODO
 }
@@ -26,7 +35,7 @@ void Game::updatePhysics()
 void Game::updateGraphics(sf::Time frameTime)
 {
     //TODO
-}
+} */
 
 void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

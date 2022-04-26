@@ -56,20 +56,6 @@ SFML/Graphics/Texture.hpp
 SFML/Window/Window.hpp
 -
 
-/home/ensta/IN104/repository/src/CheckPoint.cpp
-SFML/System.hpp
--
-SFML/Graphics.hpp
--
-string
--
-CheckPoint.h
-/home/ensta/IN104/repository/src/CheckPoint.h
-game.h
-/home/ensta/IN104/repository/src/game.h
-util.h
-/home/ensta/IN104/repository/src/util.h
-
 /home/ensta/IN104/repository/src/game.cpp
 game.h
 /home/ensta/IN104/repository/src/game.h
@@ -109,12 +95,6 @@ math.h
 -
 CheckPoint.h
 /home/ensta/IN104/repository/src/CheckPoint.h
-
-/home/ensta/IN104/repository/src/pod.cpp
-pod.h
-/home/ensta/IN104/repository/src/pod.h
 game.h
 /home/ensta/IN104/repository/src/game.h
-SFML/System/Vector2.hpp
--
 
