@@ -16,7 +16,7 @@
 //Checkpoint
 #include "CheckPoint.h"
 
-#include "game.h"
+//#include "game.h"
 
 
 const int FPS = 100.0f;
@@ -42,7 +42,7 @@ int main()
     window.setView(sf::View(sf::Rect(0.f,0.f,16000.f,9000.f)));
 
 
-  /*   //Set up of the texture
+    //Set up of the texture
     sf::Texture land_texture;
     land_texture.loadFromFile("/home/ensta/IN104/repository/Images/background.png");
 
@@ -52,7 +52,7 @@ int main()
     landscape.setTexture(land_texture);
     auto rec = landscape.getGlobalBounds();
     landscape.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
- */
+ 
 
     //CheckPoint
     sf::Vector2f center1(16000/2,9000/2);
@@ -61,10 +61,10 @@ int main()
     sf::Vector2f center2(16000/3,9000/3);
     //FinalCheckPoint CP2(center2);
 
-    std::vector<sf::Vector2f> CPs;
-    CPs.push_back(center1);
-    CPs.push_back(center2);
-    Game game(CPs);
+    //std::vector<sf::Vector2f> CPs;
+    //CPs.push_back(center1);
+    //CPs.push_back(center2);
+   // Game mygame(CPs);
     
 //////////////////////////////////////////////////////////////////////////////////
     //Set up of the Cylon
@@ -87,7 +87,7 @@ int main()
     scaleToMaxSize(Viper);
     SetOriginToCenterSprite(Viper);
     Viper.setPosition(16000/3,9000/4);
-
+ 
 ///////////////////////////////////////////////////////////////////////////////////////
 
     //Set time
@@ -130,8 +130,8 @@ int main()
 
 
         window.clear();
-        window.draw(game);
-        //window.draw(landscape);
+        //window.draw(mygame);
+        window.draw(landscape);
         //window.draw(Cylon);
         //window.draw(Viper);
         //window.draw(fps_text);
