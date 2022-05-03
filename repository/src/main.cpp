@@ -16,7 +16,7 @@
 //Checkpoint
 #include "CheckPoint.h"
 
-//#include "game.h"
+#include "game.h"
 
 
 const int FPS = 100.0f;
@@ -56,15 +56,15 @@ int main()
 
     //CheckPoint
     sf::Vector2f center1(16000/2,9000/2);
-    //CheckPoint CP1(center1, 1);
+    CheckPoint CP1(center1, 1);
 
     sf::Vector2f center2(16000/3,9000/3);
-    //FinalCheckPoint CP2(center2);
+    FinalCheckPoint CP2(center2);
 
-    //std::vector<sf::Vector2f> CPs;
-    //CPs.push_back(center1);
-    //CPs.push_back(center2);
-   // Game mygame(CPs);
+    std::vector<sf::Vector2f> CPs;
+    CPs.push_back(center1);
+    CPs.push_back(center2);
+    Game mygame(CPs);
     
 //////////////////////////////////////////////////////////////////////////////////
     //Set up of the Cylon
@@ -130,14 +130,14 @@ int main()
 
 
         window.clear();
+        window.draw(mygame);
+        //window.draw(landscape);
         //window.draw(mygame);
-        window.draw(landscape);
         //window.draw(Cylon);
         //window.draw(Viper);
         //window.draw(fps_text);
         //window.draw(CP1);
-        //window.draw(CPs);
-        //sf::RenderStates states;
+        //window.draw(CP2);
         window.display();
     }
 

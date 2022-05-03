@@ -3,7 +3,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/sfml-app.dir/src/example.cpp.o"
   "CMakeFiles/sfml-app.dir/src/game.cpp.o"
   "CMakeFiles/sfml-app.dir/src/main.cpp.o"
-  "CMakeFiles/sfml-app.dir/src/pod.cpp.o"
   "CMakeFiles/sfml-app.dir/src/util.cpp.o"
   "sfml-app"
   "sfml-app.pdb"
