@@ -7,7 +7,7 @@
 Game::Game(std::vector<sf::Vector2f> checkpointsPositions) : finalCP_(checkpointsPositions[0])
 {
     int L = checkpointsPositions.size();
-    for(int i = 0;i<L; i++){
+    for(int i = 1;i<L; i++){
         otherCPs_.emplace_back(checkpointsPositions[i], i);
     }
 
@@ -42,10 +42,10 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(backgroundSprite_, states);
     target.draw(finalCP_, states);
 
-    //for (const auto &cp : otherCPs_)
-    //{
-    //    target.draw(cp, states);
-    //}
+    for (const auto &cp : otherCPs_)
+    {
+        target.draw(cp, states);
+    }
 
     // for (const auto &podSprite : podsSprites_)
     // {
