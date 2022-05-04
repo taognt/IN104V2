@@ -32,7 +32,7 @@ class Game : public sf::Drawable
     sf::Texture backgroundTexture_;
     sf::Sprite backgroundSprite_;
 
-    //std::vector<Pod> pods_;
+    std::vector<Pod> pods_;
     std::vector<sf::Texture> podsTextures_;
     std::vector<sf::Sprite> podsSprites_;
 

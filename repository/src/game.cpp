@@ -1,6 +1,7 @@
 #include "game.h"
 #include "CheckPoint.h"
 #include "util.h"
+#include "pod.h"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <iostream>
 
@@ -22,9 +23,14 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions) : finalCP_(checkpoint
     
 }
 
-void Game::addPod()
+void Game::addPod() //ajoute un pod sur le premier checkpoint
 {
-    //TODO
+    sf::Vector2f pos = finalCP_.getPosition();
+    float angle = 0;
+    sf::Vector2f vel = {0, 0};
+    Pod pod(pos, angle, vel);
+    pods_.emplace_back(pod);
+
 }
 
 void Game::updatePhysics()
@@ -47,8 +53,8 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(cp, states);
     }
 
-    // for (const auto &podSprite : podsSprites_)
-    // {
-    //     target.draw(podSprite, states);
-    // }
+    for (const auto &podSprite : podsSprites_)
+    {
+         target.draw(podSprite, states);
+    }
 }
