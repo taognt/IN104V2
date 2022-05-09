@@ -18,8 +18,6 @@ SFML/System/Vector2.hpp
 util.h
 /home/ensta/IN104_git2/repository/inc/util.h
 
-/home/ensta/IN104_git2/repository/inc/example.h
-
 /home/ensta/IN104_git2/repository/inc/game.h
 SFML/Graphics.hpp
 -
@@ -56,33 +54,23 @@ SFML/Graphics/Texture.hpp
 SFML/Window/Window.hpp
 -
 
-/home/ensta/IN104_git2/repository/src/main.cpp
-example.h
-/home/ensta/IN104_git2/repository/src/example.h
-SFML/Graphics.hpp
+/home/ensta/IN104_git2/repository/src/game.cpp
+game.h
+/home/ensta/IN104_git2/repository/src/game.h
+CheckPoint.h
+/home/ensta/IN104_git2/repository/src/CheckPoint.h
+util.h
+/home/ensta/IN104_git2/repository/src/util.h
+pod.h
+/home/ensta/IN104_git2/repository/src/pod.h
+SFML/Graphics/CircleShape.hpp
 -
-SFML/Graphics/RenderWindow.hpp
--
-SFML/Graphics/Shape.hpp
--
-SFML/Graphics/Text.hpp
+SFML/Graphics/Sprite.hpp
 -
 SFML/Graphics/Texture.hpp
 -
-SFML/Window/Window.hpp
+SFML/System/Vector2.hpp
 -
-cstdio
--
-util.h
-/home/ensta/IN104_git2/repository/src/util.h
 iostream
 -
-string
--
-math.h
--
-CheckPoint.h
-/home/ensta/IN104_git2/repository/src/CheckPoint.h
-game.h
-/home/ensta/IN104_git2/repository/src/game.h
 

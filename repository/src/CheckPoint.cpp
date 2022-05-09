@@ -10,6 +10,7 @@ CheckPoint::CheckPoint(sf::Vector2f center, unsigned int id) : circle_(600,100)
     center_ = center;
     SetOriginToCenter(circle_);
     circle_.setPosition(center);
+    id_ = id;
     
     if(id == 0){
         circle_.setFillColor(sf::Color(255,255,255,63));

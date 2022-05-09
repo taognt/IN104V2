@@ -74,3 +74,9 @@ void SetOriginToCenterSprite(sf::Sprite &object){
     auto rec = object.getGlobalBounds();
     object.setOrigin(rec.width/2., rec.height/2.);
 } 
+
+//---Norme d'un vecteur
+
+float norm2(sf::Vector2f v1){
+    return(sqrt(v1.x*v1.x + v1.y*v1.y));
+}

@@ -53,7 +53,7 @@ int main()
     auto rec = landscape.getGlobalBounds();
     landscape.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
  
-
+/* 
     //CheckPoint
     sf::Vector2f center1(16000/2,9000/2);
     CheckPoint CP1(center1, 1);
@@ -64,7 +64,7 @@ int main()
     std::vector<sf::Vector2f> CPs;
     CPs.push_back(center1);
     CPs.push_back(center2);
-    Game mygame(CPs);
+    Game mygame(CPs); */
     
 //////////////////////////////////////////////////////////////////////////////////
     //Set up of the Cylon
@@ -90,17 +90,42 @@ int main()
  
 ///////////////////////////////////////////////////////////////////////////////////////
 
-    //Set time
+    //Set time, reset every 1/fps second
     sf::Clock clock;
     float fps = 0;
-    //sf::Time time;
+
+    //Global clock
+    sf::Clock global_clock;
     float time;
     int i = 0;
 
+    //Game time
+    sf::Time physicTime = sf::Time::Zero;
+
+    //Set up of the game
+    //Game mygame;
+    //mygame.addPod();
+    //CheckPoint
+    sf::Vector2f center1(16000/2,9000/2);
+    FinalCheckPoint CP1(center1);
+
+    sf::Vector2f center2(16000/4,9000/6);
+    CheckPoint CP2(center2, 1);
+
+    sf::Vector2f center3(16000/3,9000/3);
+    CheckPoint CP3(center3, 2);
+    
+
+    std::vector<sf::Vector2f> CPs;
+    CPs.push_back(center1);
+    CPs.push_back(center2);
+    CPs.push_back(center3);
+    Game mygame(CPs);
+
+    mygame.addPod();
     while (window.isOpen())
     {
         i++; //Des que i = 10*k, on affiche les fps
-        //Viper.rotate(50);
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -117,27 +142,34 @@ int main()
             continue;
         }
 
+        //Time past since the beginning
+        sf::Time frameTime = global_clock.getElapsedTime();
+
+        //Reset of the clock
         fps = 1.0f/time;
         clock.restart();
 
+        //Displaying of the fps
         int fps2 = round(fps);
         std::string fps_printed = std::to_string(fps2);
         
         if(i%10==0){
             fps_text.setString(fps_printed); 
         }
-        //fps_text.setPosition(1920/3,1080/4);
+        
+        if(frameTime >physicTime){
+            mygame.updateGraphics(physicTime);
+            mygame.updatePhysics();
+            physicTime += PHYSICS_TIME_STEP;
 
+            frameTime = global_clock.getElapsedTime();
 
-        window.clear();
+        }
+
+        //window.clear();
+        mygame.updateGraphics(frameTime);
         window.draw(mygame);
-        //window.draw(landscape);
-        //window.draw(mygame);
-        //window.draw(Cylon);
-        //window.draw(Viper);
-        //window.draw(fps_text);
-        //window.draw(CP1);
-        //window.draw(CP2);
+        window.draw(fps_text);
         window.display();
     }
 

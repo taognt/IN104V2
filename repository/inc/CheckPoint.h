@@ -19,6 +19,7 @@ class CheckPoint : public sf::Drawable
     void setTextCenterPosition(sf::Text text, sf::Vector2f center); //Set the position of the text to center
 
     sf::CircleShape circle_;
+    unsigned int id_;
     sf::Vector2f center_;
     sf::Font font_;
     sf::Sprite Flag_;

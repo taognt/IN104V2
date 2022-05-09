@@ -38,6 +38,7 @@ class Game : public sf::Drawable
 
     FinalCheckPoint finalCP_;
     std::vector<CheckPoint> otherCPs_;
+    std::vector<int> ids_;
 
     sf::Time lastFrameTime;
     sf::Time physicsTime;   

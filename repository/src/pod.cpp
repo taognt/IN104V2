@@ -19,6 +19,8 @@ Decision Pod::getDecision(Game gameSnapshot) const
     int FLECHE = 1;
     int IA = 0;
 
+
+
     int left = 0;
     int right = 0;
     int up = 0;
@@ -43,8 +45,8 @@ Decision Pod::getDecision(Game gameSnapshot) const
     sf::Vector2f position;
     if(FLECHE == 1){
 
-        position.x = pos_.x+right-left;
-        position.y = pos_.y+down-up;
+        position.x = pos_.x+(right-left);
+        position.y = pos_.y+(down-up);
     }
 
     if(IA == 1){

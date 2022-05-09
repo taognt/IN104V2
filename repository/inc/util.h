@@ -12,5 +12,6 @@ void scaleToMinSize(sf::Sprite &object);
 void scaleByRadius(sf::Sprite &object, float radius);
 void SetOriginToCenter(sf::Shape &object);
 void SetOriginToCenterSprite(sf::Sprite &object);
+float norm2(sf::Vector2f v1);
 
 #endif
