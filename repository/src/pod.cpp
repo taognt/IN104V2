@@ -1,4 +1,5 @@
 #include "pod.h"
+#include "CheckPoint.h"
 #include "game.h"
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Keyboard.hpp>
@@ -10,14 +11,15 @@ Decision::Decision(sf::Vector2f target, float power) : target_(target), power_(p
 
 Pod::Pod(sf::Vector2f pos, float angle, sf::Vector2f vel) : pos_(pos), vel_(vel), angle_(angle)
 {
+    nextCP_ = 1;
 
 };
 
 Decision Pod::getDecision(Game gameSnapshot) const
 {   
     //commands tests
-    int FLECHE = 1;
-    int IA = 0;
+    int FLECHE = 0;
+    int IA = 1;
 
 
 
@@ -50,7 +52,12 @@ Decision Pod::getDecision(Game gameSnapshot) const
     }
 
     if(IA == 1){
-        position = gameSnapshot.otherCPs_[nextCP_].getPosition();
+        if(nextCP_ == 0){
+            position = gameSnapshot.finalCP_.getPosition();
+        }
+        else{
+            position = gameSnapshot.otherCPs_[nextCP_-1].getPosition();
+        }
     }
 
     return Decision(position, 100);

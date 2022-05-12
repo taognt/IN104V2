@@ -80,3 +80,7 @@ void SetOriginToCenterSprite(sf::Sprite &object){
 float norm2(sf::Vector2f v1){
     return(sqrt(v1.x*v1.x + v1.y*v1.y));
 }
+
+float prod_scal2(sf::Vector2f v1, sf::Vector2f v2){
+    return(v1.x*v2.x+v1.y*v2.y);
+}

@@ -4,7 +4,9 @@
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Window.hpp>
+#include <cmath>
 #include <cstdio>
 #include "util.h"
 
@@ -19,11 +21,15 @@
 #include "game.h"
 
 
+
+//INFOS
+//Radius of checkpoint : 850
 const int FPS = 100.0f;
 
 
 int main()
 {   
+
     sf::ContextSettings settings;
 
     //Def on the fps text
@@ -38,36 +44,19 @@ int main()
     settings.antialiasingLevel = 32;
 
     //Set up of the window
-    sf::RenderWindow window(sf::VideoMode(1600, 900), "Shark Shark", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1600, 900), "IN104", sf::Style::Default, settings);
     window.setView(sf::View(sf::Rect(0.f,0.f,16000.f,9000.f)));
 
-
+/* 
     //Set up of the texture
     sf::Texture land_texture;
-    land_texture.loadFromFile("/home/ensta/IN104/repository/Images/background.png");
+    land_texture.loadFromFile("../repository/Images/background.png");
+
+ */
 
 
-    //Landscape
-    sf::Sprite landscape;
-    landscape.setTexture(land_texture);
-    auto rec = landscape.getGlobalBounds();
-    landscape.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
- 
-/* 
-    //CheckPoint
-    sf::Vector2f center1(16000/2,9000/2);
-    CheckPoint CP1(center1, 1);
-
-    sf::Vector2f center2(16000/3,9000/3);
-    FinalCheckPoint CP2(center2);
-
-    std::vector<sf::Vector2f> CPs;
-    CPs.push_back(center1);
-    CPs.push_back(center2);
-    Game mygame(CPs); */
-    
 //////////////////////////////////////////////////////////////////////////////////
-    //Set up of the Cylon
+/*     //Set up of the Cylon
     sf::Texture texture_Cylon;
     texture_Cylon.loadFromFile("/home/ensta/IN104/repository/Images/BSGCylon.png");
     sf::Sprite Cylon;
@@ -87,7 +76,7 @@ int main()
     scaleToMaxSize(Viper);
     SetOriginToCenterSprite(Viper);
     Viper.setPosition(16000/3,9000/4);
- 
+  */
 ///////////////////////////////////////////////////////////////////////////////////////
 
     //Set time, reset every 1/fps second
@@ -103,26 +92,32 @@ int main()
     sf::Time physicTime = sf::Time::Zero;
 
     //Set up of the game
-    //Game mygame;
-    //mygame.addPod();
     //CheckPoint
-    sf::Vector2f center1(16000/2,9000/2);
-    FinalCheckPoint CP1(center1);
+    sf::Vector2f center1(10000,4500);
+    //FinalCheckPoint CP1(center1);
 
-    sf::Vector2f center2(16000/4,9000/6);
-    CheckPoint CP2(center2, 1);
+    sf::Vector2f center2(12000,2000);
+    //CheckPoint CP2(center2, 1);
 
-    sf::Vector2f center3(16000/3,9000/3);
-    CheckPoint CP3(center3, 2);
+    sf::Vector2f center3(5333,1000);
+    //CheckPoint CP3(center3, 2);
+
+    sf::Vector2f center4(2000, 8000);
+
+    sf::Vector2f center5(6000, 6000);
     
 
     std::vector<sf::Vector2f> CPs;
     CPs.push_back(center1);
     CPs.push_back(center2);
     CPs.push_back(center3);
+    CPs.push_back(center4);
+    CPs.push_back(center5);
     Game mygame(CPs);
 
     mygame.addPod();
+
+
     while (window.isOpen())
     {
         i++; //Des que i = 10*k, on affiche les fps

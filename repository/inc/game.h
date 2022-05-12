@@ -2,12 +2,16 @@
 #define INC_GameLOGIC_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Window.hpp>
 #include <vector>
 #include <cmath>
 #include "CheckPoint.h"
 #include "pod.h"
+#include <queue>
+using namespace std;
 
 const unsigned int NUMBER_OF_LAPS = 3;
 const float FRICTION_COEFF = 0.85;
@@ -24,13 +28,22 @@ class Game : public sf::Drawable
 
     void addPod(); //can add various arguments here to chose the apparence or the decision making type of the pod
     void updatePhysics();
-    void updateGraphics(sf::Time frameTime); //change pods sprites positions and rotations depending on the frame time
+    void updateGraphics(sf::Time frameTime); //changes pods sprites positions and rotations depending on the frame time
+    bool is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos); //True if pod reached target
 
     // private :
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     sf::Texture backgroundTexture_;
     sf::Sprite backgroundSprite_;
+    sf::Sprite A_;
+    sf::Texture textureA_;
+    /* sf::Sprite B_;
+    sf::Texture textureB_;
+    sf::Sprite C_;
+    sf::Texture textureC_;
+    sf::Sprite D_;
+    sf::Texture textureD_; */
 
     std::vector<Pod> pods_;
     std::vector<sf::Texture> podsTextures_;
@@ -38,10 +51,10 @@ class Game : public sf::Drawable
 
     FinalCheckPoint finalCP_;
     std::vector<CheckPoint> otherCPs_;
-    std::vector<int> ids_;
 
     sf::Time lastFrameTime;
     sf::Time physicsTime;   
+    int targ = 0;
 };
 
 #endif

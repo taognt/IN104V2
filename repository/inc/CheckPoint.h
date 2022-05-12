@@ -14,7 +14,7 @@ class CheckPoint : public sf::Drawable
     sf::Vector2f getPosition(); //returns Checkpoint's position
 
 
-    private:
+    //private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void setTextCenterPosition(sf::Text text, sf::Vector2f center); //Set the position of the text to center
 

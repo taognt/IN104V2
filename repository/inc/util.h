@@ -13,5 +13,6 @@ void scaleByRadius(sf::Sprite &object, float radius);
 void SetOriginToCenter(sf::Shape &object);
 void SetOriginToCenterSprite(sf::Sprite &object);
 float norm2(sf::Vector2f v1);
+float prod_scal2(sf::Vector2f v1, sf::Vector2f v2);
 
 #endif
