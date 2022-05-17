@@ -18,8 +18,8 @@ Pod::Pod(sf::Vector2f pos, float angle, sf::Vector2f vel) : pos_(pos), vel_(vel)
 Decision Pod::getDecision(Game gameSnapshot) const
 {   
     //commands tests
-    int FLECHE = 0;
-    int IA = 1;
+    int FLECHE = gameSnapshot.Keyboard;
+    int IA = gameSnapshot.IA;
 
 
 

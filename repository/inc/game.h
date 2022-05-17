@@ -10,7 +10,6 @@
 #include <cmath>
 #include "CheckPoint.h"
 #include "pod.h"
-#include <queue>
 using namespace std;
 
 const unsigned int NUMBER_OF_LAPS = 3;
@@ -24,7 +23,7 @@ class Game : public sf::Drawable
 {
     public :
     Game(); //create a Game with 2 to 8 checkpoints at random positions (they shouldn't overlap)
-    Game(std::vector<sf::Vector2f> checkpointsPositions); //create a Game with predefined checkpoints positions
+    Game(std::vector<sf::Vector2f> checkpointsPositions, int IA, int Keyboard); //create a Game with predefined checkpoints positions
 
     void addPod(); //can add various arguments here to chose the apparence or the decision making type of the pod
     void updatePhysics();
@@ -36,14 +35,6 @@ class Game : public sf::Drawable
 
     sf::Texture backgroundTexture_;
     sf::Sprite backgroundSprite_;
-    sf::Sprite A_;
-    sf::Texture textureA_;
-    /* sf::Sprite B_;
-    sf::Texture textureB_;
-    sf::Sprite C_;
-    sf::Texture textureC_;
-    sf::Sprite D_;
-    sf::Texture textureD_; */
 
     std::vector<Pod> pods_;
     std::vector<sf::Texture> podsTextures_;
@@ -51,6 +42,10 @@ class Game : public sf::Drawable
 
     FinalCheckPoint finalCP_;
     std::vector<CheckPoint> otherCPs_;
+
+    //Settings
+    int IA;
+    int Keyboard;
 
     sf::Time lastFrameTime;
     sf::Time physicsTime;   

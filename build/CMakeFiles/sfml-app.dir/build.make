@@ -70,9 +70,22 @@ CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.s"
 	clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ensta/IN104_git2/repository/src/CheckPoint.cpp -o CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.s
 
+CMakeFiles/sfml-app.dir/src/Menu.cpp.o: CMakeFiles/sfml-app.dir/flags.make
+CMakeFiles/sfml-app.dir/src/Menu.cpp.o: /home/ensta/IN104_git2/repository/src/Menu.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sfml-app.dir/src/Menu.cpp.o"
+	clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sfml-app.dir/src/Menu.cpp.o -c /home/ensta/IN104_git2/repository/src/Menu.cpp
+
+CMakeFiles/sfml-app.dir/src/Menu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sfml-app.dir/src/Menu.cpp.i"
+	clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ensta/IN104_git2/repository/src/Menu.cpp > CMakeFiles/sfml-app.dir/src/Menu.cpp.i
+
+CMakeFiles/sfml-app.dir/src/Menu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sfml-app.dir/src/Menu.cpp.s"
+	clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ensta/IN104_git2/repository/src/Menu.cpp -o CMakeFiles/sfml-app.dir/src/Menu.cpp.s
+
 CMakeFiles/sfml-app.dir/src/example.cpp.o: CMakeFiles/sfml-app.dir/flags.make
 CMakeFiles/sfml-app.dir/src/example.cpp.o: /home/ensta/IN104_git2/repository/src/example.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sfml-app.dir/src/example.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sfml-app.dir/src/example.cpp.o"
 	clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sfml-app.dir/src/example.cpp.o -c /home/ensta/IN104_git2/repository/src/example.cpp
 
 CMakeFiles/sfml-app.dir/src/example.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/sfml-app.dir/src/example.cpp.s: cmake_force
 
 CMakeFiles/sfml-app.dir/src/game.cpp.o: CMakeFiles/sfml-app.dir/flags.make
 CMakeFiles/sfml-app.dir/src/game.cpp.o: /home/ensta/IN104_git2/repository/src/game.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sfml-app.dir/src/game.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sfml-app.dir/src/game.cpp.o"
 	clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sfml-app.dir/src/game.cpp.o -c /home/ensta/IN104_git2/repository/src/game.cpp
 
 CMakeFiles/sfml-app.dir/src/game.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/sfml-app.dir/src/game.cpp.s: cmake_force
 
 CMakeFiles/sfml-app.dir/src/main.cpp.o: CMakeFiles/sfml-app.dir/flags.make
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sfml-app.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sfml-app.dir/src/main.cpp.o"
 	clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sfml-app.dir/src/main.cpp.o -c /home/ensta/IN104_git2/repository/src/main.cpp
 
 CMakeFiles/sfml-app.dir/src/main.cpp.i: cmake_force
@@ -109,9 +122,22 @@ CMakeFiles/sfml-app.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sfml-app.dir/src/main.cpp.s"
 	clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ensta/IN104_git2/repository/src/main.cpp -o CMakeFiles/sfml-app.dir/src/main.cpp.s
 
+CMakeFiles/sfml-app.dir/src/options.cpp.o: CMakeFiles/sfml-app.dir/flags.make
+CMakeFiles/sfml-app.dir/src/options.cpp.o: /home/ensta/IN104_git2/repository/src/options.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sfml-app.dir/src/options.cpp.o"
+	clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sfml-app.dir/src/options.cpp.o -c /home/ensta/IN104_git2/repository/src/options.cpp
+
+CMakeFiles/sfml-app.dir/src/options.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sfml-app.dir/src/options.cpp.i"
+	clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ensta/IN104_git2/repository/src/options.cpp > CMakeFiles/sfml-app.dir/src/options.cpp.i
+
+CMakeFiles/sfml-app.dir/src/options.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sfml-app.dir/src/options.cpp.s"
+	clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ensta/IN104_git2/repository/src/options.cpp -o CMakeFiles/sfml-app.dir/src/options.cpp.s
+
 CMakeFiles/sfml-app.dir/src/pod.cpp.o: CMakeFiles/sfml-app.dir/flags.make
 CMakeFiles/sfml-app.dir/src/pod.cpp.o: /home/ensta/IN104_git2/repository/src/pod.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sfml-app.dir/src/pod.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sfml-app.dir/src/pod.cpp.o"
 	clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sfml-app.dir/src/pod.cpp.o -c /home/ensta/IN104_git2/repository/src/pod.cpp
 
 CMakeFiles/sfml-app.dir/src/pod.cpp.i: cmake_force
@@ -124,7 +150,7 @@ CMakeFiles/sfml-app.dir/src/pod.cpp.s: cmake_force
 
 CMakeFiles/sfml-app.dir/src/util.cpp.o: CMakeFiles/sfml-app.dir/flags.make
 CMakeFiles/sfml-app.dir/src/util.cpp.o: /home/ensta/IN104_git2/repository/src/util.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sfml-app.dir/src/util.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/sfml-app.dir/src/util.cpp.o"
 	clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sfml-app.dir/src/util.cpp.o -c /home/ensta/IN104_git2/repository/src/util.cpp
 
 CMakeFiles/sfml-app.dir/src/util.cpp.i: cmake_force
@@ -138,9 +164,11 @@ CMakeFiles/sfml-app.dir/src/util.cpp.s: cmake_force
 # Object files for target sfml-app
 sfml__app_OBJECTS = \
 "CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.o" \
+"CMakeFiles/sfml-app.dir/src/Menu.cpp.o" \
 "CMakeFiles/sfml-app.dir/src/example.cpp.o" \
 "CMakeFiles/sfml-app.dir/src/game.cpp.o" \
 "CMakeFiles/sfml-app.dir/src/main.cpp.o" \
+"CMakeFiles/sfml-app.dir/src/options.cpp.o" \
 "CMakeFiles/sfml-app.dir/src/pod.cpp.o" \
 "CMakeFiles/sfml-app.dir/src/util.cpp.o"
 
@@ -148,14 +176,16 @@ sfml__app_OBJECTS = \
 sfml__app_EXTERNAL_OBJECTS =
 
 sfml-app: CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.o
+sfml-app: CMakeFiles/sfml-app.dir/src/Menu.cpp.o
 sfml-app: CMakeFiles/sfml-app.dir/src/example.cpp.o
 sfml-app: CMakeFiles/sfml-app.dir/src/game.cpp.o
 sfml-app: CMakeFiles/sfml-app.dir/src/main.cpp.o
+sfml-app: CMakeFiles/sfml-app.dir/src/options.cpp.o
 sfml-app: CMakeFiles/sfml-app.dir/src/pod.cpp.o
 sfml-app: CMakeFiles/sfml-app.dir/src/util.cpp.o
 sfml-app: CMakeFiles/sfml-app.dir/build.make
 sfml-app: CMakeFiles/sfml-app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable sfml-app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ensta/IN104_git2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable sfml-app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sfml-app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

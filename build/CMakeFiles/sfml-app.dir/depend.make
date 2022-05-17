@@ -7,6 +7,10 @@ CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.o: /home/ensta/IN104_git2/repository/
 CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.o: /home/ensta/IN104_git2/repository/inc/util.h
 CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.o: /home/ensta/IN104_git2/repository/src/CheckPoint.cpp
 
+CMakeFiles/sfml-app.dir/src/Menu.cpp.o: /home/ensta/IN104_git2/repository/inc/Menu.h
+CMakeFiles/sfml-app.dir/src/Menu.cpp.o: /home/ensta/IN104_git2/repository/inc/util.h
+CMakeFiles/sfml-app.dir/src/Menu.cpp.o: /home/ensta/IN104_git2/repository/src/Menu.cpp
+
 CMakeFiles/sfml-app.dir/src/example.cpp.o: /home/ensta/IN104_git2/repository/inc/example.h
 CMakeFiles/sfml-app.dir/src/example.cpp.o: /home/ensta/IN104_git2/repository/src/example.cpp
 
@@ -17,11 +21,18 @@ CMakeFiles/sfml-app.dir/src/game.cpp.o: /home/ensta/IN104_git2/repository/inc/ut
 CMakeFiles/sfml-app.dir/src/game.cpp.o: /home/ensta/IN104_git2/repository/src/game.cpp
 
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/inc/CheckPoint.h
-CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/inc/example.h
+CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/inc/Menu.h
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/inc/game.h
+CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/inc/options.h
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/inc/pod.h
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/inc/util.h
 CMakeFiles/sfml-app.dir/src/main.cpp.o: /home/ensta/IN104_git2/repository/src/main.cpp
+
+CMakeFiles/sfml-app.dir/src/options.cpp.o: /home/ensta/IN104_git2/repository/inc/CheckPoint.h
+CMakeFiles/sfml-app.dir/src/options.cpp.o: /home/ensta/IN104_git2/repository/inc/options.h
+CMakeFiles/sfml-app.dir/src/options.cpp.o: /home/ensta/IN104_git2/repository/inc/pod.h
+CMakeFiles/sfml-app.dir/src/options.cpp.o: /home/ensta/IN104_git2/repository/inc/util.h
+CMakeFiles/sfml-app.dir/src/options.cpp.o: /home/ensta/IN104_git2/repository/src/options.cpp
 
 CMakeFiles/sfml-app.dir/src/pod.cpp.o: /home/ensta/IN104_git2/repository/inc/CheckPoint.h
 CMakeFiles/sfml-app.dir/src/pod.cpp.o: /home/ensta/IN104_git2/repository/inc/game.h

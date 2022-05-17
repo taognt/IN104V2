@@ -14,7 +14,7 @@
 #include <type_traits>
 #include <vector>
 
-Game::Game(std::vector<sf::Vector2f> checkpointsPositions) : finalCP_(checkpointsPositions[0])
+Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard_) : finalCP_(checkpointsPositions[0])
 {   
     int L = checkpointsPositions.size();
 
@@ -28,6 +28,10 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions) : finalCP_(checkpoint
     backgroundSprite_.setTexture(backgroundTexture_);
     auto rec = backgroundSprite_.getGlobalBounds();
     backgroundSprite_.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
+
+    //Settings
+    IA = IA_;
+    Keyboard = Keyboard_;
 
     
 }
@@ -163,8 +167,6 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         target.draw(podSprite, states);
     }
-    
-    target.draw(A_, states);
 
 }
 

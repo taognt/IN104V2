@@ -150,6 +150,33 @@ src/CheckPoint.cpp.s:
 	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.s
 .PHONY : src/CheckPoint.cpp.s
 
+src/Menu.o: src/Menu.cpp.o
+
+.PHONY : src/Menu.o
+
+# target to build an object file
+src/Menu.cpp.o:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/Menu.cpp.o
+.PHONY : src/Menu.cpp.o
+
+src/Menu.i: src/Menu.cpp.i
+
+.PHONY : src/Menu.i
+
+# target to preprocess a source file
+src/Menu.cpp.i:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/Menu.cpp.i
+.PHONY : src/Menu.cpp.i
+
+src/Menu.s: src/Menu.cpp.s
+
+.PHONY : src/Menu.s
+
+# target to generate assembly for a file
+src/Menu.cpp.s:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/Menu.cpp.s
+.PHONY : src/Menu.cpp.s
+
 src/example.o: src/example.cpp.o
 
 .PHONY : src/example.o
@@ -231,6 +258,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/options.o: src/options.cpp.o
+
+.PHONY : src/options.o
+
+# target to build an object file
+src/options.cpp.o:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/options.cpp.o
+.PHONY : src/options.cpp.o
+
+src/options.i: src/options.cpp.i
+
+.PHONY : src/options.i
+
+# target to preprocess a source file
+src/options.cpp.i:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/options.cpp.i
+.PHONY : src/options.cpp.i
+
+src/options.s: src/options.cpp.s
+
+.PHONY : src/options.s
+
+# target to generate assembly for a file
+src/options.cpp.s:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/options.cpp.s
+.PHONY : src/options.cpp.s
+
 src/pod.o: src/pod.cpp.o
 
 .PHONY : src/pod.o
@@ -297,6 +351,9 @@ help:
 	@echo "... src/CheckPoint.o"
 	@echo "... src/CheckPoint.i"
 	@echo "... src/CheckPoint.s"
+	@echo "... src/Menu.o"
+	@echo "... src/Menu.i"
+	@echo "... src/Menu.s"
 	@echo "... src/example.o"
 	@echo "... src/example.i"
 	@echo "... src/example.s"
@@ -306,6 +363,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/options.o"
+	@echo "... src/options.i"
+	@echo "... src/options.s"
 	@echo "... src/pod.o"
 	@echo "... src/pod.i"
 	@echo "... src/pod.s"

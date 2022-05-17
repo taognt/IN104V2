@@ -70,6 +70,11 @@ void SetOriginToCenter(sf::Shape &object){
     object.setOrigin(rec.width/2., rec.height/2.);
 } 
 
+void SetOriginToCenterText(sf::Text &object){
+    auto rec = object.getGlobalBounds();
+    object.setOrigin(rec.width/2., rec.height/2.);
+} 
+
 void SetOriginToCenterSprite(sf::Sprite &object){
     auto rec = object.getGlobalBounds();
     object.setOrigin(rec.width/2., rec.height/2.);
