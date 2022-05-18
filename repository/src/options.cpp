@@ -16,10 +16,25 @@ Options :: Options(float width, float height)
         printf("No font has been found\n");
     }
 
+    //Background
     Background_texture.loadFromFile("../repository/Images/mars.jpg");
     Background_sprite.setTexture(Background_texture);
     auto rec = Background_sprite.getGlobalBounds();
     Background_sprite.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
+
+    //Images
+    IA_texture.loadFromFile("../repository/Images/IA.png");
+    IA_sprite.setTexture(IA_texture);
+    scaleToMaxSize(IA_sprite);
+    SetOriginToCenterSprite(IA_sprite);
+    IA_sprite.setPosition(8000, 2700);
+
+    Arrow_texture.loadFromFile("../repository/Images/arrow.png");
+    Arrow_sprite.setTexture(Arrow_texture);
+    scaleToMaxSize(Arrow_sprite);
+    SetOriginToCenterSprite(Arrow_sprite);
+    Arrow_sprite.setPosition(10500, 3850);
+
 
     //IA
     options_list[0].setFont(font);
@@ -53,14 +68,6 @@ Options :: Options(float width, float height)
 
 
     Selected = 0;
-    //options_list[Selected].setFillColor(sf::Color::White); 
-
-    /* if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        MoveUp();
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        MoveDown();
-    } */
 }
 Options::~Options()
 {
@@ -74,6 +81,8 @@ void Options::draw(sf::RenderTarget& target, sf::RenderStates states) const
     for(int i=0;i<max_options; i++){
         target.draw(options_list[i]);
     } 
+    target.draw(IA_sprite, states);
+    target.draw(Arrow_sprite, states);
 
 }
 

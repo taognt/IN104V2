@@ -43,6 +43,7 @@ int main(){
     int IA = 1;
     int Keyboard_ = 0;
 
+
     while (MENU.isOpen()) {
         sf::Event event;
         while(MENU.pollEvent(event)){

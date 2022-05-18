@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/System.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window.hpp>
@@ -30,6 +31,10 @@ class Options : public sf::Drawable
     int Selected;
     sf::Sprite Background_sprite;
     sf::Texture Background_texture;
+    sf::Texture IA_texture;
+    sf::Sprite IA_sprite;
+    sf::Texture Arrow_texture;
+    sf::Sprite Arrow_sprite;
 
     sf::Text options_list[max_options];
 };

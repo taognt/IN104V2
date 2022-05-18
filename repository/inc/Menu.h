@@ -24,11 +24,11 @@ class MainMenu : public sf::Drawable
     };
     ~MainMenu();
     int Released;
+    sf::Font font;
 
 
     private:
     int Selected;
-    sf::Font font;
     sf::Sprite Background_sprite;
     sf::Texture Background_texture;
     sf::Text mainMenu[max_main_menu];
