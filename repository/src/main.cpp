@@ -133,7 +133,12 @@ int main(){
                             while (PLAY.pollEvent(event)){
                                 if (event.type == sf::Event::Closed){
                                     PLAY.close();
-                                    }   
+                                    }
+                                if(event.type == sf::Event::KeyPressed){
+                                    if(event.key.code == sf::Keyboard::Escape){
+                                        PLAY.close();
+                                    }
+                                }
                             }
                         while((time = clock.getElapsedTime().asSeconds())<=1.0f/FPS){
                             continue;
@@ -203,6 +208,7 @@ int main(){
                                             IA = 1;
                                             Keyboard_ = 0;
                                             x = 0;
+                                            OPTIONS.close();
                                             break;
                                         }
                                         //Keyboard is pressed
@@ -210,8 +216,14 @@ int main(){
                                             IA = 0;
                                             Keyboard_ = 1;
                                             x = 0;
+                                            OPTIONS.close();
                                             break;
                                         }
+                                        if(x2 == 2){
+                                            OPTIONS.close();
+                                            break;
+                                        }
+
                                     }
                                 }
 
