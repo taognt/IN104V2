@@ -29,7 +29,7 @@ class Pod
     int nextCP_, lapCount_;
     float Power_max; //Power maxof the pod
     sf::Time chrono; //Time to finish the run
-    //sf::Font font;
+    double timer;
     sf::Text chrono_text;
     int start; //1 if the pod have just started the run, 0 after, used to know if the pod finished the run in is_finished_run
     int finish;

@@ -3,6 +3,7 @@
 #include "util.h"
 #include "pod.h"
 #include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -70,6 +71,20 @@ void Game::addPod() //ajoute un pod sur le premier checkpoint
 
     int i = nb_pod; //For 0 pod, i = 0 : first pod as position 0 in pods_
 
+    //timer
+    pod.chrono = physicsTime;
+    printf("chrono %d : %f\n", i+1, pod.chrono.asSeconds());
+
+    //timer text
+    pod.chrono_text.setFont(font);
+    SetOriginToCenterText(pod.chrono_text);
+    pod.chrono_text.setString("Pod "+std::to_string(i+1)+" : ");
+    pod.chrono_text.setCharacterSize(0);
+    pod.chrono_text.setPosition(14000,1000+300*i);
+    pod.chrono_text.setFillColor(sf::Color::White);
+    pod.chrono_text.setOutlineColor(sf::Color::Black);
+    pod.chrono_text.setOutlineThickness(15);
+
     if(i%6==0){
         podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png");
         pod.Power_max = 150;
@@ -103,6 +118,8 @@ void Game::addPod() //ajoute un pod sur le premier checkpoint
     scaleToMaxSize(podsSprites_[i]);
     SetOriginToCenterSprite(podsSprites_[i]);
     podsSprites_[i].setPosition(pods_[i].pos_);
+
+
 
     nb_pod ++;
     
@@ -156,10 +173,6 @@ void Game::updatePhysics()
 
         } 
 
-        /* if(!is_reached(pod.pos_, center2, old_pos)){
-            targ = 0;
-            printf("out of the target \n \n");
-        } */
     }
 
     physicsTime += PHYSICS_TIME_STEP;
@@ -179,16 +192,10 @@ void Game::updateGraphics(sf::Time frameTime)
 
         sf::Vector2f pos_sprite = podsSprites_[k].getPosition();
         if(pods_[k].finish == 1){
-            pods_[k].chrono = physicsTime;
-            float timer = round(physicsTime.asSeconds()*100)/100;
-            pods_[k].chrono_text.setFont(font);
-            SetOriginToCenterText(pods_[k].chrono_text);
-            pods_[k].chrono_text.setString(std::to_string(timer));
-            pods_[k].chrono_text.setCharacterSize(250);
-            pods_[k].chrono_text.setPosition(14500, 3000);
-            pods_[k].chrono_text.setFillColor(sf::Color::White);
-            pods_[k].chrono_text.setOutlineColor(sf::Color::Black);
-            pods_[k].chrono_text.setOutlineThickness(15);
+            pods_[k].chrono = physicsTime - pods_[k].chrono;
+            pods_[k].timer = ((pods_[k].chrono.asSeconds()*100)   /100.0);
+            pods_[k].chrono_text.setString(pods_[k].chrono_text.getString()  + std::to_string(pods_[k].timer));
+            pods_[k].chrono_text.setCharacterSize(250); 
         }
 
         if(c>1){
@@ -213,6 +220,7 @@ void Game::updateAdders(sf::Vector2i localPosition){
         else if((1497<localPosition.x && localPosition.x<1800 && 780<localPosition.y && localPosition.y<800)){
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 addPod();
+
             }
         }
     }
@@ -229,9 +237,8 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(cp, states);
     }
     for(const auto &pod : pods_){
-        if(pod.finish==1){
-            target.draw(pod.chrono_text, states);
-        }
+        target.draw(pod.chrono_text, states);
+        
     }
 
     for (const auto &podSprite : podsSprites_)
