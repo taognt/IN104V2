@@ -3,6 +3,7 @@
 #include "util.h"
 #include "pod.h"
 #include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -11,11 +12,15 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <string>
 #include <type_traits>
 #include <vector>
 
 Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard_) : finalCP_(checkpointsPositions[0])
 {   
+    nb_pod = 0;
+    podsSprites_.reserve(MAX_POD);
+    podsTextures_.reserve(MAX_POD);
     int L = checkpointsPositions.size();
 
     otherCPs_.reserve(L-1);
@@ -33,6 +38,18 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
     IA = IA_;
     Keyboard = Keyboard_;
 
+    //Adders :
+    if(!font.loadFromFile("../repository/font/nasa.ttf")){
+        printf("No font has been found\n");
+    }
+    Game_List[0].setFont(font);
+    SetOriginToCenterText(Game_List[0]);
+    Game_List[0].setString("Add Pod : press [P]");
+    Game_List[0].setCharacterSize(250);
+    Game_List[0].setPosition(13000, 8000);
+    Game_List[0].setFillColor(sf::Color::White);
+    Game_List[0].setOutlineColor(sf::Color::Black);
+    Game_List[0].setOutlineThickness(20);
     
 }
 
@@ -45,31 +62,49 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
 } */
 
 void Game::addPod() //ajoute un pod sur le premier checkpoint
-{
+{   
     sf::Vector2f pos = finalCP_.getPosition();
-    float angle = 0;
     sf::Vector2f vel = {0, 0};
+    float angle = 0;
     Pod pod(pos, angle, vel);
+
+    int i = nb_pod; //For 0 pod, i = 0 : first pod as position 0 in pods_
+
+    if(i%6==0){
+        podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png");
+        pod.Power_max = 150;
+    }
+    if(i%6==1){
+        podsTextures_[i].loadFromFile("../repository/Images/BSGViper.png");
+        pod.Power_max = 120;
+    }
+    if(i%6==2){
+        podsTextures_[i].loadFromFile("../repository/Images/NMSFighterG.png");
+        pod.Power_max = 90;
+    }
+    if(i%6==3){
+        podsTextures_[i].loadFromFile("../repository/Images/NMSFighterY.png");
+        pod.Power_max = 100;
+    }
+    if(i%6==4){
+        podsTextures_[i].loadFromFile("../repository/Images/SWAnakinsPod.png");
+        pod.Power_max = 80;
+    }
+    if(i%6==5){
+        podsTextures_[i].loadFromFile("../repository/Images/SWMilleniumFalcon.png");
+        pod.Power_max = 130;
+    }
+
     pods_.emplace_back(pod);
-
-
-    sf::Texture podtext;
-    //podtext.loadFromFile("../repository/Images/BSGCylon.png");
-    podsTextures_.emplace_back(podtext);
-    podsTextures_[0].loadFromFile("../repository/Images/BSGCylon.png");
-
     sf::Sprite podsprite;
     podsSprites_.emplace_back(podsprite);
-    
-    int L = podsSprites_.size();
 
-    for (int k=0; k<L;k++){
-        podsSprites_[k].setTexture(podsTextures_[k]);
-        scaleToMaxSize(podsSprites_[k]);
-        SetOriginToCenterSprite(podsSprites_[k]);
-        podsSprites_[k].setPosition(pods_[k].pos_);
-    }
-    
+    podsSprites_[i].setTexture(podsTextures_[i]);
+    scaleToMaxSize(podsSprites_[i]);
+    SetOriginToCenterSprite(podsSprites_[i]);
+    podsSprites_[i].setPosition(pods_[i].pos_);
+
+    nb_pod ++;
     
 }
 
@@ -79,6 +114,10 @@ void Game::updatePhysics()
     for (Pod &pod : pods_)
     {
         Decision d = pod.getDecision(*this);
+
+        if(pod.start == 1 && d.target_ == finalCP_.getPosition()){
+            pod.start = 0;
+        }
 
         //updatePhysics:
         sf::Vector2f target = d.target_;
@@ -105,7 +144,6 @@ void Game::updatePhysics()
         }
         pod.pos_ = pod.pos_ + pod.vel_;
 
-        sf::Vector2f center2(4000,1500);
 
         if(is_reached(pod.pos_, target, old_pos) == true){
             if(pod.nextCP_ == otherCPs_[otherCPs_.size()-1].id_){
@@ -140,6 +178,18 @@ void Game::updateGraphics(sf::Time frameTime)
     for (int k=0; k<L;k++){
 
         sf::Vector2f pos_sprite = podsSprites_[k].getPosition();
+        if(pods_[k].finish == 1){
+            pods_[k].chrono = physicsTime;
+            float timer = round(physicsTime.asSeconds()*100)/100;
+            pods_[k].chrono_text.setFont(font);
+            SetOriginToCenterText(pods_[k].chrono_text);
+            pods_[k].chrono_text.setString(std::to_string(timer));
+            pods_[k].chrono_text.setCharacterSize(250);
+            pods_[k].chrono_text.setPosition(14500, 3000);
+            pods_[k].chrono_text.setFillColor(sf::Color::White);
+            pods_[k].chrono_text.setOutlineColor(sf::Color::Black);
+            pods_[k].chrono_text.setOutlineThickness(15);
+        }
 
         if(c>1){
         podsSprites_[k].setPosition(pods_[k].pos_ + -(pods_[k].pos_ - pos_sprite )/c);
@@ -153,6 +203,22 @@ void Game::updateGraphics(sf::Time frameTime)
     lastFrameTime = frameTime;
 }
 
+
+void Game::updateAdders(sf::Vector2i localPosition){
+    //Hitbox of the button add pod
+    if(nb_pod < MAX_POD){
+        bool val = false;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)) val = true;
+        if(val) addPod();
+        else if((1497<localPosition.x && localPosition.x<1800 && 780<localPosition.y && localPosition.y<800)){
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                addPod();
+            }
+        }
+    }
+}
+
+
 void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(backgroundSprite_, states);
@@ -162,24 +228,48 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         target.draw(cp, states);
     }
+    for(const auto &pod : pods_){
+        if(pod.finish==1){
+            target.draw(pod.chrono_text, states);
+        }
+    }
 
     for (const auto &podSprite : podsSprites_)
     {
         target.draw(podSprite, states);
     }
 
+    for(int i=0;i<max_list; i++){
+        target.draw(Game_List[i]);
+    } 
+
 }
 
+
+//Thanks to the intertie, the pod will change target before reaching point
 bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos){
     bool val;
     float radius = 850;
-    if(norm2(new_pos - target) <=radius){
+    if(norm2(new_pos - target) <= radius){
         val = true;
     }
     else{
         val = false;
     }
     return val;
+}
+
+void Game::is_finished_run(){
+    for (Pod &pod : pods_){
+        if(pod.start == 0 && pod.nextCP_ == 1){
+            pod.finish = 1;
+        }
+    }
+}
+void Game::reset_finish(){
+    for(Pod &pod : pods_){
+        pod.finish = 0;
+    }
 }
 
 /* bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos){

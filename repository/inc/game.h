@@ -2,7 +2,9 @@
 #define INC_GameLOGIC_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/System.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window.hpp>
@@ -13,11 +15,14 @@
 using namespace std;
 
 const unsigned int NUMBER_OF_LAPS = 3;
+const float RADIUS = 850;
 const float FRICTION_COEFF = 0.85;
 const float ROTA_MAX = M_PI/10.;
 const sf::Time PHYSICS_TIME_STEP = sf::milliseconds(100);
 const std::string IMAGES_PATH = "../repository/Images/";
 const std::string FONT_PATH = "../repository/";
+const int max_list = 1;
+const int MAX_POD = 4;
 
 class Game : public sf::Drawable
 {
@@ -29,6 +34,10 @@ class Game : public sf::Drawable
     void updatePhysics();
     void updateGraphics(sf::Time frameTime); //changes pods sprites positions and rotations depending on the frame time
     bool is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos); //True if pod reached target
+    void updateAdders(sf::Vector2i localPosition); //update the adders relatively to the <indow PLAY
+    void is_finished_run(); //set finish to 1 et 0 if the pod have finished the run
+    void reset_finish(); //reset the finish test 
+    int nb_pod; //Nb pod already placed
 
     // private :
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -50,6 +59,10 @@ class Game : public sf::Drawable
     sf::Time lastFrameTime;
     sf::Time physicsTime;   
     int targ = 0;
+
+    //adders
+    sf::Font font;
+    sf::Text Game_List[max_list];
 };
 
 #endif

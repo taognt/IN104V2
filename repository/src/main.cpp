@@ -1,4 +1,8 @@
 
+//Music
+#include <SFML/Audio.hpp>
+
+//Graphic
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -10,6 +14,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Window.hpp>
+
 
 
 #include <cmath>
@@ -79,6 +84,9 @@ int main(){
 
                         //Global clock
                         sf::Clock global_clock;
+                        float global_time;
+                        std::string global_time_printed;
+                        sf::Text global_time_text;
                         float time;
                         int i = 0;
                         const int FPS = 60.0f;
@@ -86,6 +94,7 @@ int main(){
                         //Def on the fps text
                         sf::Text fps_text;
                         sf::Font font;
+                        std::string fps_printed;
 
                         //Loading font
                         if(!font.loadFromFile("../repository/font/nasa.ttf")){
@@ -98,6 +107,15 @@ int main(){
                         fps_text.setFillColor(sf::Color::White);
                         fps_text.setOutlineColor(sf::Color::Black);
                         fps_text.setOutlineThickness(30);
+
+                        //Global time
+
+                        global_time_text.setCharacterSize(350);
+                        global_time_text.setFont(font);
+                        global_time_text.setPosition(14000,10);
+                        global_time_text.setFillColor(sf::Color::White);
+                        global_time_text.setOutlineColor(sf::Color::Black);
+                        global_time_text.setOutlineThickness(30);
 
                         //Game time
                         sf::Time physicTime = sf::Time::Zero;
@@ -154,17 +172,26 @@ int main(){
 
                         //Displaying of the fps
                         int fps2 = round(fps);
-                        std::string fps_printed = std::to_string(fps2);
-        
+                        fps_printed = std::to_string(fps2);
+
                         if(i%10==0){
                             fps_text.setString(fps_printed); 
+                            global_time_text.setString(global_time_printed); 
+                            global_time = round(physicTime.asSeconds()*100)/100;
+                            global_time_printed = std::to_string(global_time);
                         }
         
                         if(frameTime >physicTime){
+                            mygame.reset_finish();
                             mygame.updateGraphics(physicTime);
                             mygame.updatePhysics();
-                            physicTime += PHYSICS_TIME_STEP;
+                            mygame.is_finished_run();
 
+                            //mouse position:
+                            sf::Vector2i localPosition = sf::Mouse::getPosition(PLAY);
+                            mygame.updateAdders(localPosition);
+
+                            physicTime += PHYSICS_TIME_STEP;
                             frameTime = global_clock.getElapsedTime();
                             }
 
@@ -173,6 +200,7 @@ int main(){
                             mygame.updateGraphics(frameTime);
                             PLAY.draw(mygame);
                             PLAY.draw(fps_text);
+                            PLAY.draw(global_time_text);
                             OPTIONS.close();
                             PLAY.display();  
                         }
@@ -256,6 +284,13 @@ int main(){
 
 
             }
+
+            if(event.type == sf::Event::KeyPressed){
+                if(event.key.code == sf::Keyboard::Escape){
+                    MENU.close();
+                }
+            }
+
         }
         MENU.clear();
         MENU.draw(myMenu);
