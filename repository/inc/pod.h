@@ -26,6 +26,8 @@ class Pod
     private :
     sf::Vector2f pos_, vel_; //position and velocity vectors
     float angle_; //angle in radians
+    bool mode_IA;
+    int id_;
     int nextCP_, lapCount_;
     float Power_max; //Power maxof the pod
     sf::Time chrono; //Time to finish the run

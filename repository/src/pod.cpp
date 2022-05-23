@@ -15,14 +15,15 @@ Pod::Pod(sf::Vector2f pos, float angle, sf::Vector2f vel) : pos_(pos), vel_(vel)
     nextCP_ = 1;
     start = 1;
     finish = 0;
+    lapCount_ = 0;
 
 };
 
 Decision Pod::getDecision(Game gameSnapshot) const
 {   
     //commands 
-    int FLECHE = gameSnapshot.Keyboard;
-    int IA = gameSnapshot.IA;
+    int FLECHE = 1-mode_IA;
+    int IA = mode_IA;
 
     int left = 0;
     int right = 0;

@@ -17,7 +17,7 @@
 #include <type_traits>
 #include <vector>
 
-Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard_) : finalCP_(checkpointsPositions[0])
+Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard_) : finalCP_(checkpointsPositions[0]), cpPositions(checkpointsPositions)
 {   
     nb_pod = 0;
     podsSprites_.reserve(MAX_POD);
@@ -70,42 +70,46 @@ void Game::addPod() //ajoute un pod sur le premier checkpoint
     Pod pod(pos, angle, vel);
 
     int i = nb_pod; //For 0 pod, i = 0 : first pod as position 0 in pods_
+    pod.id_ = nb_pod+1;
+
+    //mode
+    pod.mode_IA = IA;
+
 
     //timer
     pod.chrono = physicsTime;
-    printf("chrono %d : %f\n", i+1, pod.chrono.asSeconds());
 
     //timer text
     pod.chrono_text.setFont(font);
     SetOriginToCenterText(pod.chrono_text);
     pod.chrono_text.setString("Pod "+std::to_string(i+1)+" : ");
     pod.chrono_text.setCharacterSize(0);
-    pod.chrono_text.setPosition(14000,1000+300*i);
+    pod.chrono_text.setPosition(13500,1000+500*i);
     pod.chrono_text.setFillColor(sf::Color::White);
     pod.chrono_text.setOutlineColor(sf::Color::Black);
     pod.chrono_text.setOutlineThickness(15);
 
-    if(i%6==0){
+    if(i==0){
         podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png");
         pod.Power_max = 150;
     }
-    if(i%6==1){
+    if(i==1){
         podsTextures_[i].loadFromFile("../repository/Images/BSGViper.png");
         pod.Power_max = 120;
     }
-    if(i%6==2){
-        podsTextures_[i].loadFromFile("../repository/Images/NMSFighterG.png");
+    if(i==2){
+        podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png");
         pod.Power_max = 90;
     }
-    if(i%6==3){
+    if(i==3){
         podsTextures_[i].loadFromFile("../repository/Images/NMSFighterY.png");
         pod.Power_max = 100;
     }
-    if(i%6==4){
+    if(i==4){
         podsTextures_[i].loadFromFile("../repository/Images/SWAnakinsPod.png");
         pod.Power_max = 80;
     }
-    if(i%6==5){
+    if(i==5){
         podsTextures_[i].loadFromFile("../repository/Images/SWMilleniumFalcon.png");
         pod.Power_max = 130;
     }
@@ -129,19 +133,42 @@ void Game::updatePhysics()
 {
 
     for (Pod &pod : pods_)
-    {
+    {   
+        if(pod.id_> 1 && Keyboard == 1){
+            pod.mode_IA = 1;
+        }
+
+        if(is_reached(pod.pos_, cpPositions[pod.nextCP_], pod.pos_)){
+            pod.nextCP_ +=1;
+            if(pod.nextCP_== cpPositions.size()){
+                pod.nextCP_ = 0;
+            }
+            if(pod.nextCP_ ==1){
+                pod.lapCount_ +=1;
+            }
+
+        }
+
         Decision d = pod.getDecision(*this);
 
-        if(pod.start == 1 && d.target_ == finalCP_.getPosition()){
+        /* if(pod.mode_IA == 1){
+            if(pod.start == 1 && d.target_ == finalCP_.getPosition()){
             pod.start = 0;
+                }
         }
+        else{
+            if(pod.start == 1 && is_reached(pod.pos_, finalCP_.getPosition(), pod.pos_)){
+                printf("pod start = 0\n");
+                pod.start = 0;
+            }
+        } */
+        
 
         //updatePhysics:
         sf::Vector2f target = d.target_;
         float power = d.power_;
         sf::Vector2f diff;
-        diff.x = target.x - pod.pos_.x;
-        diff.y = target.y - pod.pos_.y;
+        diff = target - pod.pos_;
 
         //Old positions
         sf::Vector2f old_pos = pod.pos_;
@@ -156,14 +183,14 @@ void Game::updatePhysics()
         }
 
         if(pod.vel_.x != 0){
-        if (pod.vel_.x < 0) pod.angle_ = M_PI + std::atan(pod.vel_.y/pod.vel_.x);
-        else pod.angle_ = std::atan(pod.vel_.y/pod.vel_.x);
+            if (pod.vel_.x < 0) pod.angle_ = M_PI + std::atan(pod.vel_.y/pod.vel_.x);
+            else pod.angle_ = std::atan(pod.vel_.y/pod.vel_.x);
         }
         pod.pos_ = pod.pos_ + pod.vel_;
 
 
-        if(is_reached(pod.pos_, target, old_pos) == true){
-            if(pod.nextCP_ == otherCPs_[otherCPs_.size()-1].id_){
+        /* if(is_reached(pod.pos_, target, old_pos) == true){
+            if(pod.nextCP_ == (int)otherCPs_[otherCPs_.size()-1].id_){
                 pod.nextCP_ = 0;
             }
             else{
@@ -171,10 +198,12 @@ void Game::updatePhysics()
             }
             
 
-        } 
+        }  */
 
     }
-
+    IA = 0;
+    Keyboard = 1;
+            
     physicsTime += PHYSICS_TIME_STEP;
     //utiliser PodsSnapShot et pods_ pour vérifier si chaque pod a validé son prochain CP : Si checkpoint atteint, on va au prochain
     // !!! Verifier qu'on est pas au bout de la liste, sinon on reboucle
@@ -191,9 +220,9 @@ void Game::updateGraphics(sf::Time frameTime)
     for (int k=0; k<L;k++){
 
         sf::Vector2f pos_sprite = podsSprites_[k].getPosition();
-        if(pods_[k].finish == 1){
+        if(pods_[k].lapCount_ == NUMBER_OF_LAPS){
             pods_[k].chrono = physicsTime - pods_[k].chrono;
-            pods_[k].timer = ((pods_[k].chrono.asSeconds()*100)   /100.0);
+            pods_[k].timer = ((pods_[k].chrono.asSeconds()));
             pods_[k].chrono_text.setString(pods_[k].chrono_text.getString()  + std::to_string(pods_[k].timer));
             pods_[k].chrono_text.setCharacterSize(250); 
         }
