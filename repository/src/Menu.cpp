@@ -15,12 +15,24 @@ MainMenu :: MainMenu(float width, float height)
         printf("No font has been found\n");
     }
 
-
     Max_ = max_main_menu;
-    Background_texture.loadFromFile("../repository/Images/mars.jpg");
+    if(!Background_texture.loadFromFile("../repository/Images/mars.jpg")){
+        printf("No texture has been found\n");
+    };  
+
     Background_sprite.setTexture(Background_texture);
     auto rec = Background_sprite.getGlobalBounds();
     Background_sprite.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
+
+    //controll indication
+    controll_indication.setFont(font);
+    SetOriginToCenterText(controll_indication);
+    controll_indication.setString("Press Space to select");
+    controll_indication.setCharacterSize(300);
+    controll_indication.setPosition(12000, 8000);
+    controll_indication.setFillColor(sf::Color::White);
+    controll_indication.setOutlineColor(sf::Color::Black);
+    controll_indication.setOutlineThickness(20);
 
     //Play
     mainMenu[0].setFont(font);
@@ -28,7 +40,7 @@ MainMenu :: MainMenu(float width, float height)
     mainMenu[0].setString("Play");
     mainMenu[0].setCharacterSize(800);
     mainMenu[0].setPosition(6000, 2000);
-    mainMenu[0].setFillColor(sf::Color::Black);
+    mainMenu[0].setFillColor(sf::Color::White);
     mainMenu[0].setOutlineColor(sf::Color::Black);
     mainMenu[0].setOutlineThickness(20);
 
@@ -53,14 +65,6 @@ MainMenu :: MainMenu(float width, float height)
     mainMenu[2].setOutlineThickness(20);
 
     Selected = 0;
-    //mainMenu[Selected].setFillColor(sf::Color::White); 
-
-    /* if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        MoveUp();
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        MoveDown();
-    } */
 }
 MainMenu::~MainMenu()
 {
@@ -75,17 +79,18 @@ void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(mainMenu[i]);
     } 
 
+    target.draw(controll_indication, states);
 }
 
 void MainMenu::MoveUp()
 {
     if(Selected >= 0){
-        mainMenu[Selected].setFillColor(sf::Color::Black); //button selected
+        mainMenu[Selected].setFillColor(sf::Color::Black); //button reset to black
         Selected --;
         if (Selected == -1) { //Cycle Play - Option - Exit - Play - ...
             Selected = max_main_menu-1;
         }
-        mainMenu[Selected].setFillColor(sf::Color::White);  //Latest button reset to Black
+        mainMenu[Selected].setFillColor(sf::Color::White);  //Latest set to white
     }
 }
 

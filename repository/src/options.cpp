@@ -10,7 +10,7 @@
 #include <cmath>
 
 
-Options :: Options(float width, float height)
+Options :: Options()
 {   
     if(!font.loadFromFile("../repository/font/nasa.ttf")){
         printf("No font has been found\n");
@@ -21,6 +21,16 @@ Options :: Options(float width, float height)
     Background_sprite.setTexture(Background_texture);
     auto rec = Background_sprite.getGlobalBounds();
     Background_sprite.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
+
+    //controll indication
+    controll_indication.setFont(font);
+    SetOriginToCenterText(controll_indication);
+    controll_indication.setString("Press Space to select");
+    controll_indication.setCharacterSize(300);
+    controll_indication.setPosition(12000, 8000);
+    controll_indication.setFillColor(sf::Color::White);
+    controll_indication.setOutlineColor(sf::Color::Black);
+    controll_indication.setOutlineThickness(20);
 
     //Images
     IA_texture.loadFromFile("../repository/Images/IA.png");
@@ -42,7 +52,7 @@ Options :: Options(float width, float height)
     options_list[0].setString("IA");
     options_list[0].setCharacterSize(800);
     options_list[0].setPosition(6000, 2000);
-    options_list[0].setFillColor(sf::Color::Black);
+    options_list[0].setFillColor(sf::Color::White);
     options_list[0].setOutlineColor(sf::Color::Black);
     options_list[0].setOutlineThickness(20);
 
@@ -83,6 +93,7 @@ void Options::draw(sf::RenderTarget& target, sf::RenderStates states) const
     } 
     target.draw(IA_sprite, states);
     target.draw(Arrow_sprite, states);
+    target.draw(controll_indication, states);
 
 }
 

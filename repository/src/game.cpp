@@ -1,5 +1,6 @@
 #include "game.h"
 #include "CheckPoint.h"
+#include "Banana.h"
 #include "util.h"
 #include "pod.h"
 #include <SFML/Graphics/CircleShape.hpp>
@@ -9,6 +10,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -24,7 +26,6 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
         printf("No font has been found\n");
     }
 
-    //
     nb_pod = 0;
     podsSprites_.reserve(MAX_POD);
     podsTextures_.reserve(MAX_POD);
@@ -48,7 +49,6 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
     //laps
     nb_lap_text.setFont(font);
     SetOriginToCenterText(nb_lap_text);
-    nb_lap_text.setString("Lap Count : "+ std::to_string(nb_lap) + " / " + std::to_string(NUMBER_OF_LAPS));
     nb_lap_text.setCharacterSize(300);
     nb_lap_text.setPosition(13000,7000);
     nb_lap_text.setFillColor(sf::Color::White);
@@ -56,15 +56,13 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
     nb_lap_text.setOutlineThickness(20);
 
     //fps
+    fps_ = 0;
     fps_text.setCharacterSize(350);
     fps_text.setFont(font);
     fps_text.setPosition(50,10);
     fps_text.setFillColor(sf::Color::White);
     fps_text.setOutlineColor(sf::Color::Black);
     fps_text.setOutlineThickness(30);
-
-    //fps
-    fps_ = 0;
 
     //global time
     global_time_text.setCharacterSize(350);
@@ -86,15 +84,7 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
     
 }
 
-/* Game ::Game()
-{   
-    sf::Vector2f center(0,0);
-    FinalCheckPoint CP(center);
-    finalCP_ = CP;
-
-} */
-
-void Game::addPod() //ajoute un pod sur le premier checkpoint
+void Game::addPod() //add a pod on the first checkpoint
 {   
     sf::Vector2f pos = finalCP_.getPosition();
     sf::Vector2f vel = {0, 0};
@@ -106,7 +96,6 @@ void Game::addPod() //ajoute un pod sur le premier checkpoint
 
     //mode
     pod.mode_IA = IA;
-
 
     //timer
     pod.chrono = physicsTime;
@@ -130,7 +119,7 @@ void Game::addPod() //ajoute un pod sur le premier checkpoint
         pod.Power_max = 120;
     }
     if(i==2){
-        podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png");
+        podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png"); //If texture different to i=0 : when the pod appears, the textrure i=0 changes (I dont understand why)
         pod.Power_max = 90;
     }
     if(i==3){
@@ -146,6 +135,7 @@ void Game::addPod() //ajoute un pod sur le premier checkpoint
         pod.Power_max = 130;
     }
 
+    //Set up of the pods
     pods_.emplace_back(pod);
     sf::Sprite podsprite;
     podsSprites_.emplace_back(podsprite);
@@ -155,8 +145,7 @@ void Game::addPod() //ajoute un pod sur le premier checkpoint
     SetOriginToCenterSprite(podsSprites_[i]);
     podsSprites_[i].setPosition(pods_[i].pos_);
 
-
-
+    //1 pod is add
     nb_pod ++;
     
 }
@@ -166,26 +155,27 @@ void Game::updatePhysics()
 
     for (Pod &pod : pods_)
     {   
+        //Only the first pod is controlled by keyboard
         if(pod.id_> 1 && Keyboard == 1){
             pod.mode_IA = 1;
         }
 
-
-        if(is_reached(pod.pos_, cpPositions[pod.nextCP_], pod.pos_)){
+        if(is_reached(pod.pos_, cpPositions[pod.nextCP_])){
             pod.nextCP_ +=1;
 
-            if(pod.nextCP_== cpPositions.size()){
+            if(pod.nextCP_== (int)cpPositions.size()){
                 pod.nextCP_ = 0;
             }
-            if(pod.nextCP_ ==1){
+            //if nextCP = CP 1 (the 2nd checkpoint), then the race is finished
+            if(pod.nextCP_ == 1){
                 pod.lapCount_ +=1;
+                if(pod.id_==1){
+                    nb_lap +=1;
+                }
             }
-
         }
 
         Decision d = pod.getDecision(*this);
-
-        
 
         //updatePhysics:
         sf::Vector2f target = d.target_;
@@ -193,10 +183,8 @@ void Game::updatePhysics()
         sf::Vector2f diff;
         diff = target - pod.pos_;
 
-        //Old positions
-        sf::Vector2f old_pos = pod.pos_;
-
         float norm_ = norm2(diff);
+        //Relatively to the formula
         if(norm_ != 0){
             pod.vel_.x = FRICTION_COEFF*(pod.vel_.x + power*   ( (target.x - pod.pos_.x)/norm2(diff)));
             pod.vel_.y = FRICTION_COEFF*(pod.vel_.y + power*((target.y - pod.pos_.y)/norm2(diff)));
@@ -210,22 +198,13 @@ void Game::updatePhysics()
             else pod.angle_ = std::atan(pod.vel_.y/pod.vel_.x);
         }
         pod.pos_ = pod.pos_ + pod.vel_;
-
-
-
     }
-    IA = 0;
-    Keyboard = 1;
-            
     physicsTime += PHYSICS_TIME_STEP;
-    //utiliser PodsSnapShot et pods_ pour vérifier si chaque pod a validé son prochain CP : Si checkpoint atteint, on va au prochain
-    // !!! Verifier qu'on est pas au bout de la liste, sinon on reboucle
      
     
 }
 void Game::updateGraphics(sf::Time frameTime)
 {   
-    //std::vector<sf::Sprite> Sprites = podsSprites_;
 
     float c = (physicsTime - frameTime) / (frameTime - lastFrameTime);
 
@@ -233,6 +212,8 @@ void Game::updateGraphics(sf::Time frameTime)
     for (int k=0; k<L;k++){
 
         sf::Vector2f pos_sprite = podsSprites_[k].getPosition();
+
+        //set up of the chrono
         if(pods_[k].timer_complete ==0 && pods_[k].lapCount_ == NUMBER_OF_LAPS){
             pods_[k].chrono = physicsTime - pods_[k].chrono;
             pods_[k].timer = ((int)(pods_[k].chrono.asSeconds()));
@@ -250,8 +231,7 @@ void Game::updateGraphics(sf::Time frameTime)
         podsSprites_[k].setRotation(pods_[k].angle_*180.f/M_PI);
     }
 
-
-
+    nb_lap_text.setString("Lap Count : "+ std::to_string(nb_lap) + " / " + std::to_string(NUMBER_OF_LAPS));
     lastFrameTime = frameTime;
 }
 
@@ -301,8 +281,7 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 
-//Thanks to the intertie, the pod will change target before reaching point
-bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos){
+bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target){
     bool val;
     float radius = 850;
     if(norm2(new_pos - target) <= radius){
@@ -321,6 +300,7 @@ void Game::fps(){
     fps_printed = std::to_string((int)round(fps_));
     fps_text.setString("Fps : " + fps_printed);
 
+    //Global time
     global_time = (int)round(physicsTime.asSeconds()*100)/100;
     global_time_printed = std::to_string(global_time);
     global_time_text.setString("Global Time : " +global_time_printed + " s"); 

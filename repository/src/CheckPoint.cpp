@@ -12,6 +12,7 @@ CheckPoint::CheckPoint(sf::Vector2f center, unsigned int id) : circle_(600,100)
     circle_.setPosition(center);
     id_ = id;
     
+    //First checkpoint, also the last
     if(id == 0){
         circle_.setFillColor(sf::Color(255,255,255,63));
         fillingText_.setFillColor(sf::Color(255, 255, 255, 63));
@@ -54,7 +55,6 @@ void CheckPoint::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(Flag_);
     target.draw(circle_, states);
-    //setTextCenterPosition(fillingText_, center_);
     target.draw(fillingText_);
 };
 
@@ -82,8 +82,6 @@ FinalCheckPoint::FinalCheckPoint(sf::Vector2f center) : circle_(600,100)
     SetOriginToCenterSprite(fillingSprite_);
     fillingSprite_.setPosition(center);
     scaleByRadius(fillingSprite_,850);
-
-
 };
 
 void FinalCheckPoint::draw(sf::RenderTarget& target, sf::RenderStates states) const

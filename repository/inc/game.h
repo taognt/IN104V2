@@ -37,9 +37,8 @@ class Game : public sf::Drawable
     void addPod(); //can add various arguments here to chose the apparence or the decision making type of the pod
     void updatePhysics();
     void updateGraphics(sf::Time frameTime); //changes pods sprites positions and rotations depending on the frame time
-    bool is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos); //True if pod reached target
+    bool is_reached(sf::Vector2f new_pos, sf::Vector2f target); //True if pod reached target
     void updateAdders(sf::Vector2i localPosition); //update the adders relatively to the <indow PLAY
-    void is_finished_run(); //set finish to 1 et 0 if the pod have finished the run
     void reset_finish(); //reset the finish test 
     void fps(); //set new fps string
     int nb_pod; //Nb pod already placed

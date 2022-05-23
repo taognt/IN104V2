@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/sfml-app.dir/src/Banana.cpp.o"
   "CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.o"
   "CMakeFiles/sfml-app.dir/src/Menu.cpp.o"
   "CMakeFiles/sfml-app.dir/src/game.cpp.o"

@@ -12,7 +12,6 @@
 #include <SFML/Window/Window.hpp>
 
 
-
 #include <cmath>
 #include <cstdio>
 #include "util.h"
@@ -28,6 +27,9 @@
 #include "CheckPoint.h"
 //Game
 #include "game.h"
+
+/* //Banana
+#include "Banana.h" */          //Doesnt work for the time
 
 int main(){
     sf::ContextSettings settings;
@@ -68,7 +70,7 @@ int main(){
                     PLAY.setView(sf::View(sf::Rect(0.f, 0.f, 16000.f, 9000.f)));
                     sf::RenderWindow OPTIONS(sf::VideoMode(1600, 900), "Options", sf::Style::Default, settings);
                     OPTIONS.setView(sf::View(sf::Rect(0.f, 0.f, 16000.f, 9000.f)));
-                    Options myOptions(OPTIONS.getSize().x, OPTIONS.getSize().y);
+                    Options myOptions;
 
                     int x = myMenu.MainMenuPressed();
 
@@ -106,13 +108,13 @@ int main(){
                         CPs.push_back(center5);
                         Game mygame(CPs, IA, Keyboard_);
 
+
                         //Game time
                         mygame.physicsTime = sf::Time::Zero;
-
-                        mygame.addPod();
+                        mygame.addPod(); //Lets start with 1 pod
 
                         while (PLAY.isOpen()){
-                            i++; //Des que i = 10*k, on affiche les fps
+                            i++; //As soon as i = 10*k, fps is printed
                             sf::Event event;
                             while (PLAY.pollEvent(event)){
                                 if (event.type == sf::Event::Closed){
@@ -137,10 +139,9 @@ int main(){
 
         
                         if(frameTime >mygame.physicsTime){
-                            //mygame.reset_finish();
                             mygame.updateGraphics(mygame.physicsTime);
                             mygame.updatePhysics();
-                            //mygame.is_finished_run();
+
                             if(i%10==0){
                                 mygame.fps();
                             }
@@ -148,8 +149,6 @@ int main(){
                             //mouse position:
                             sf::Vector2i localPosition = sf::Mouse::getPosition(PLAY);
                             mygame.updateAdders(localPosition);
-
-                            //physicTime += PHYSICS_TIME_STEP;
                             frameTime = global_clock.getElapsedTime();
                             }
 
@@ -157,8 +156,6 @@ int main(){
                             PLAY.clear();
                             mygame.updateGraphics(frameTime);
                             PLAY.draw(mygame);
-                            /* PLAY.draw(fps_text);
-                            PLAY.draw(global_time_text); */
                             OPTIONS.close();
                             PLAY.display();  
                         }
@@ -191,7 +188,7 @@ int main(){
                                         int x2 = myOptions.OptionPressed();
 
                                         //IA is pressed
-                                        if(x2 ==0){
+                                        if(x2 == 0){
                                             IA = 1;
                                             Keyboard_ = 0;
                                             x = 0;
@@ -206,6 +203,7 @@ int main(){
                                             OPTIONS.close();
                                             break;
                                         }
+                                        //Exit is pressed
                                         if(x2 == 2){
                                             OPTIONS.close();
                                             break;
@@ -213,8 +211,6 @@ int main(){
 
                                     }
                                 }
-
-
 
                                 if(aevent.type == sf::Event::KeyPressed){
                                     if(aevent.key.code == sf::Keyboard::Escape){
@@ -239,8 +235,6 @@ int main(){
                     
                 }
 
-
-
             }
 
             if(event.type == sf::Event::KeyPressed){
@@ -253,8 +247,6 @@ int main(){
         MENU.clear();
         MENU.draw(myMenu);
         MENU.display();
-
-
 
     }
 }

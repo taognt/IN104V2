@@ -17,7 +17,7 @@
 class Options : public sf::Drawable
 {   
     public : 
-    Options(float width, float height);
+    Options();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void MoveUp();
     void MoveDown();
@@ -28,6 +28,7 @@ class Options : public sf::Drawable
 
     private:
     sf::Font font;
+    sf::Text controll_indication;
     int Selected;
     sf::Sprite Background_sprite;
     sf::Texture Background_texture;

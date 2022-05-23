@@ -20,8 +20,8 @@ Pod::Pod(sf::Vector2f pos, float angle, sf::Vector2f vel) : pos_(pos), vel_(vel)
 
 Decision Pod::getDecision(Game gameSnapshot) const
 {   
-    //commands 
-    int FLECHE = 1-mode_IA;
+    //commands IA or Keyboard
+    int KB = 1-mode_IA;
     int IA = mode_IA;
 
     int left = 0;
@@ -52,7 +52,7 @@ Decision Pod::getDecision(Game gameSnapshot) const
     //Vector center - surface, directed by the vector center - pod
     sf::Vector2f TS; // T for Target, S for Surface
     sf::Vector2f S; //Position of the S point
-    if(FLECHE == 1){
+    if(KB == 1){
 
         position.x = pos_.x+(right-left);
         position.y = pos_.y+(down-up);

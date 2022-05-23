@@ -123,6 +123,33 @@ sfml-app/fast:
 	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/build
 .PHONY : sfml-app/fast
 
+src/Banana.o: src/Banana.cpp.o
+
+.PHONY : src/Banana.o
+
+# target to build an object file
+src/Banana.cpp.o:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/Banana.cpp.o
+.PHONY : src/Banana.cpp.o
+
+src/Banana.i: src/Banana.cpp.i
+
+.PHONY : src/Banana.i
+
+# target to preprocess a source file
+src/Banana.cpp.i:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/Banana.cpp.i
+.PHONY : src/Banana.cpp.i
+
+src/Banana.s: src/Banana.cpp.s
+
+.PHONY : src/Banana.s
+
+# target to generate assembly for a file
+src/Banana.cpp.s:
+	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/Banana.cpp.s
+.PHONY : src/Banana.cpp.s
+
 src/CheckPoint.o: src/CheckPoint.cpp.o
 
 .PHONY : src/CheckPoint.o
@@ -321,6 +348,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... sfml-app"
+	@echo "... src/Banana.o"
+	@echo "... src/Banana.i"
+	@echo "... src/Banana.s"
 	@echo "... src/CheckPoint.o"
 	@echo "... src/CheckPoint.i"
 	@echo "... src/CheckPoint.s"

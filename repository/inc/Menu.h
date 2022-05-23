@@ -14,10 +14,10 @@
 class MainMenu : public sf::Drawable
 {
     public:
-    int Max_;
+    int Max_; //Number of buttons
     MainMenu(float width, float height);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    void MoveUp();
+    void MoveUp(); //Function which moveup on the mainMenu[] according to the keyboard
     void MoveDown();
     int MainMenuPressed(){
         return Selected;
@@ -28,10 +28,11 @@ class MainMenu : public sf::Drawable
 
 
     private:
-    int Selected;
+    int Selected; //Option selected
     sf::Sprite Background_sprite;
     sf::Texture Background_texture;
     sf::Text mainMenu[max_main_menu];
+    sf::Text controll_indication;
 
 };
 
