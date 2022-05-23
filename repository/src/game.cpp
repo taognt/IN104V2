@@ -314,23 +314,7 @@ bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f ol
     return val;
 }
 
- void Game::is_finished_run(){
-    for (Pod &pod : pods_){
-        if(pod.start == 0 && pod.nextCP_ == 1){
-            pod.finish = 1;
-            printf("pod.id : %d", pod.id_);
-            if(pod.id_== 1){
-            printf("TEST\n");
-            nb_lap+=1;
-            }
-        }
-    }
-}
-void Game::reset_finish(){
-    for(Pod &pod : pods_){
-        pod.finish = 0;
-    }
-}
+
  
 void Game::fps(){
     //fps
