@@ -1,7 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.o"
   "CMakeFiles/sfml-app.dir/src/Menu.cpp.o"
-  "CMakeFiles/sfml-app.dir/src/example.cpp.o"
   "CMakeFiles/sfml-app.dir/src/game.cpp.o"
   "CMakeFiles/sfml-app.dir/src/main.cpp.o"
   "CMakeFiles/sfml-app.dir/src/options.cpp.o"

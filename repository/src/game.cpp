@@ -19,6 +19,12 @@
 
 Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard_) : finalCP_(checkpointsPositions[0]), cpPositions(checkpointsPositions)
 {   
+    //Loading font
+    if(!font.loadFromFile("../repository/font/nasa.ttf")){
+        printf("No font has been found\n");
+    }
+
+    //
     nb_pod = 0;
     podsSprites_.reserve(MAX_POD);
     podsTextures_.reserve(MAX_POD);
@@ -39,10 +45,36 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
     IA = IA_;
     Keyboard = Keyboard_;
 
+    //laps
+    nb_lap_text.setFont(font);
+    SetOriginToCenterText(nb_lap_text);
+    nb_lap_text.setString("Lap Count : "+ std::to_string(nb_lap) + " / " + std::to_string(NUMBER_OF_LAPS));
+    nb_lap_text.setCharacterSize(300);
+    nb_lap_text.setPosition(13000,7000);
+    nb_lap_text.setFillColor(sf::Color::White);
+    nb_lap_text.setOutlineColor(sf::Color::Black);
+    nb_lap_text.setOutlineThickness(20);
+
+    //fps
+    fps_text.setCharacterSize(350);
+    fps_text.setFont(font);
+    fps_text.setPosition(50,10);
+    fps_text.setFillColor(sf::Color::White);
+    fps_text.setOutlineColor(sf::Color::Black);
+    fps_text.setOutlineThickness(30);
+
+    //fps
+    fps_ = 0;
+
+    //global time
+    global_time_text.setCharacterSize(350);
+    global_time_text.setFont(font);
+    global_time_text.setPosition(50,500);
+    global_time_text.setFillColor(sf::Color::White);
+    global_time_text.setOutlineColor(sf::Color::Black);
+    global_time_text.setOutlineThickness(30);
+
     //Adders :
-    if(!font.loadFromFile("../repository/font/nasa.ttf")){
-        printf("No font has been found\n");
-    }
     Game_List[0].setFont(font);
     SetOriginToCenterText(Game_List[0]);
     Game_List[0].setString("Add Pod : press [P]");
@@ -84,10 +116,10 @@ void Game::addPod() //ajoute un pod sur le premier checkpoint
     SetOriginToCenterText(pod.chrono_text);
     pod.chrono_text.setString("Pod "+std::to_string(i+1)+" : ");
     pod.chrono_text.setCharacterSize(0);
-    pod.chrono_text.setPosition(13500,1000+500*i);
+    pod.chrono_text.setPosition(14000,1000+500*i);
     pod.chrono_text.setFillColor(sf::Color::White);
     pod.chrono_text.setOutlineColor(sf::Color::Black);
-    pod.chrono_text.setOutlineThickness(15);
+    pod.chrono_text.setOutlineThickness(20);
 
     if(i==0){
         podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png");
@@ -138,8 +170,10 @@ void Game::updatePhysics()
             pod.mode_IA = 1;
         }
 
+
         if(is_reached(pod.pos_, cpPositions[pod.nextCP_], pod.pos_)){
             pod.nextCP_ +=1;
+
             if(pod.nextCP_== cpPositions.size()){
                 pod.nextCP_ = 0;
             }
@@ -151,17 +185,6 @@ void Game::updatePhysics()
 
         Decision d = pod.getDecision(*this);
 
-        /* if(pod.mode_IA == 1){
-            if(pod.start == 1 && d.target_ == finalCP_.getPosition()){
-            pod.start = 0;
-                }
-        }
-        else{
-            if(pod.start == 1 && is_reached(pod.pos_, finalCP_.getPosition(), pod.pos_)){
-                printf("pod start = 0\n");
-                pod.start = 0;
-            }
-        } */
         
 
         //updatePhysics:
@@ -189,16 +212,6 @@ void Game::updatePhysics()
         pod.pos_ = pod.pos_ + pod.vel_;
 
 
-        /* if(is_reached(pod.pos_, target, old_pos) == true){
-            if(pod.nextCP_ == (int)otherCPs_[otherCPs_.size()-1].id_){
-                pod.nextCP_ = 0;
-            }
-            else{
-                pod.nextCP_ = otherCPs_[pod.nextCP_].id_;
-            }
-            
-
-        }  */
 
     }
     IA = 0;
@@ -220,11 +233,12 @@ void Game::updateGraphics(sf::Time frameTime)
     for (int k=0; k<L;k++){
 
         sf::Vector2f pos_sprite = podsSprites_[k].getPosition();
-        if(pods_[k].lapCount_ == NUMBER_OF_LAPS){
+        if(pods_[k].timer_complete ==0 && pods_[k].lapCount_ == NUMBER_OF_LAPS){
             pods_[k].chrono = physicsTime - pods_[k].chrono;
-            pods_[k].timer = ((pods_[k].chrono.asSeconds()));
-            pods_[k].chrono_text.setString(pods_[k].chrono_text.getString()  + std::to_string(pods_[k].timer));
-            pods_[k].chrono_text.setCharacterSize(250); 
+            pods_[k].timer = ((int)(pods_[k].chrono.asSeconds()));
+            pods_[k].chrono_text.setString(pods_[k].chrono_text.getString()  + std::to_string(pods_[k].timer) + " s");
+            pods_[k].chrono_text.setCharacterSize(300); 
+            pods_[k].timer_complete = 1;
         }
 
         if(c>1){
@@ -235,6 +249,8 @@ void Game::updateGraphics(sf::Time frameTime)
         }
         podsSprites_[k].setRotation(pods_[k].angle_*180.f/M_PI);
     }
+
+
 
     lastFrameTime = frameTime;
 }
@@ -279,6 +295,9 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(Game_List[i]);
     } 
 
+    target.draw(fps_text, states);
+    target.draw(global_time_text, states);
+    target.draw(nb_lap_text, states);
 }
 
 
@@ -295,10 +314,15 @@ bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f ol
     return val;
 }
 
-void Game::is_finished_run(){
+ void Game::is_finished_run(){
     for (Pod &pod : pods_){
         if(pod.start == 0 && pod.nextCP_ == 1){
             pod.finish = 1;
+            printf("pod.id : %d", pod.id_);
+            if(pod.id_== 1){
+            printf("TEST\n");
+            nb_lap+=1;
+            }
         }
     }
 }
@@ -306,6 +330,16 @@ void Game::reset_finish(){
     for(Pod &pod : pods_){
         pod.finish = 0;
     }
+}
+ 
+void Game::fps(){
+    //fps
+    fps_printed = std::to_string((int)round(fps_));
+    fps_text.setString("Fps : " + fps_printed);
+
+    global_time = (int)round(physicsTime.asSeconds()*100)/100;
+    global_time_printed = std::to_string(global_time);
+    global_time_text.setString("Global Time : " +global_time_printed + " s"); 
 }
 
 /* bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos){

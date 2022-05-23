@@ -4,17 +4,20 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System.hpp>
+#include <SFML/System/Clock.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window.hpp>
+#include <string>
 #include <vector>
 #include <cmath>
 #include "CheckPoint.h"
 #include "pod.h"
 using namespace std;
 
-const unsigned int NUMBER_OF_LAPS = 1;
+const unsigned int NUMBER_OF_LAPS = 2;
 const float RADIUS = 850;
 const float FRICTION_COEFF = 0.85;
 const float ROTA_MAX = M_PI/10.;
@@ -23,6 +26,7 @@ const std::string IMAGES_PATH = "../repository/Images/";
 const std::string FONT_PATH = "../repository/";
 const int max_list = 1;
 const int MAX_POD = 4;
+const int FPS = 60.0f;
 
 class Game : public sf::Drawable
 {
@@ -37,9 +41,22 @@ class Game : public sf::Drawable
     void updateAdders(sf::Vector2i localPosition); //update the adders relatively to the <indow PLAY
     void is_finished_run(); //set finish to 1 et 0 if the pod have finished the run
     void reset_finish(); //reset the finish test 
+    void fps(); //set new fps string
     int nb_pod; //Nb pod already placed
 
-    // private :
+    //Time
+    sf::Clock clock_;
+    std::string global_time_printed;
+    int global_time;
+    sf::Text global_time_text;
+
+
+    //fps
+    float fps_;
+    float time;
+    sf::Text fps_text;
+    std::string fps_printed;
+
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     sf::Texture backgroundTexture_;
@@ -52,6 +69,9 @@ class Game : public sf::Drawable
     FinalCheckPoint finalCP_;
     std::vector<CheckPoint> otherCPs_;
     std::vector<sf::Vector2f> cpPositions;
+
+    int nb_lap;
+    sf::Text nb_lap_text;
 
     //Settings
     int IA;

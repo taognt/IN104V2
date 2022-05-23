@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ensta/IN104V2/repository
+CMAKE_SOURCE_DIR = /home/ensta/IN104V3/repository
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ensta/IN104V2/build
+CMAKE_BINARY_DIR = /home/ensta/IN104V3/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ensta/IN104V2/build/CMakeFiles /home/ensta/IN104V2/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ensta/IN104V3/build/CMakeFiles /home/ensta/IN104V3/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ensta/IN104V2/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ensta/IN104V3/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -176,33 +176,6 @@ src/Menu.s: src/Menu.cpp.s
 src/Menu.cpp.s:
 	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/Menu.cpp.s
 .PHONY : src/Menu.cpp.s
-
-src/example.o: src/example.cpp.o
-
-.PHONY : src/example.o
-
-# target to build an object file
-src/example.cpp.o:
-	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/example.cpp.o
-.PHONY : src/example.cpp.o
-
-src/example.i: src/example.cpp.i
-
-.PHONY : src/example.i
-
-# target to preprocess a source file
-src/example.cpp.i:
-	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/example.cpp.i
-.PHONY : src/example.cpp.i
-
-src/example.s: src/example.cpp.s
-
-.PHONY : src/example.s
-
-# target to generate assembly for a file
-src/example.cpp.s:
-	$(MAKE) -f CMakeFiles/sfml-app.dir/build.make CMakeFiles/sfml-app.dir/src/example.cpp.s
-.PHONY : src/example.cpp.s
 
 src/game.o: src/game.cpp.o
 
@@ -354,9 +327,6 @@ help:
 	@echo "... src/Menu.o"
 	@echo "... src/Menu.i"
 	@echo "... src/Menu.s"
-	@echo "... src/example.o"
-	@echo "... src/example.i"
-	@echo "... src/example.s"
 	@echo "... src/game.o"
 	@echo "... src/game.i"
 	@echo "... src/game.s"

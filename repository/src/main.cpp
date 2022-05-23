@@ -76,45 +76,11 @@ int main(){
                     if(x==0){
                         //Set time, reset every 1/fps second
                         sf::Clock clock;
-                        float fps = 0;
 
                         //Global clock
                         sf::Clock global_clock;
-                        float global_time;
-                        std::string global_time_printed;
-                        sf::Text global_time_text;
-                        float time;
+
                         int i = 0;
-                        const int FPS = 60.0f;
-
-                        //Def on the fps text
-                        sf::Text fps_text;
-                        sf::Font font;
-                        std::string fps_printed;
-
-                        //Loading font
-                        if(!font.loadFromFile("../repository/font/nasa.ttf")){
-                            printf("No font has been found\n");
-                        }
-
-                        fps_text.setCharacterSize(350);
-                        fps_text.setFont(font);
-                        fps_text.setPosition(50,10);
-                        fps_text.setFillColor(sf::Color::White);
-                        fps_text.setOutlineColor(sf::Color::Black);
-                        fps_text.setOutlineThickness(30);
-
-                        //Global time
-
-                        global_time_text.setCharacterSize(350);
-                        global_time_text.setFont(font);
-                        global_time_text.setPosition(14000,10);
-                        global_time_text.setFillColor(sf::Color::White);
-                        global_time_text.setOutlineColor(sf::Color::Black);
-                        global_time_text.setOutlineThickness(30);
-
-                        //Game time
-                        sf::Time physicTime = sf::Time::Zero;
 
                         //Set up of the game
                         //CheckPoint
@@ -140,6 +106,9 @@ int main(){
                         CPs.push_back(center5);
                         Game mygame(CPs, IA, Keyboard_);
 
+                        //Game time
+                        mygame.physicsTime = sf::Time::Zero;
+
                         mygame.addPod();
 
                         while (PLAY.isOpen()){
@@ -155,7 +124,7 @@ int main(){
                                     }
                                 }
                             }
-                        while((time = clock.getElapsedTime().asSeconds())<=1.0f/FPS){
+                        while((mygame.time = mygame.clock_.getElapsedTime().asSeconds())<=1.0f/FPS){
                             continue;
                             }
 
@@ -163,31 +132,24 @@ int main(){
                         sf::Time frameTime = global_clock.getElapsedTime();
 
                         //Reset of the clock
-                        fps = 1.0f/time;
-                        clock.restart();
+                        mygame.fps_ = 1.0f/mygame.time;
+                        mygame.clock_.restart();
 
-                        //Displaying of the fps
-                        int fps2 = round(fps);
-                        fps_printed = std::to_string(fps2);
-
-                        if(i%10==0){
-                            fps_text.setString(fps_printed); 
-                            global_time_text.setString(global_time_printed); 
-                            global_time = round(physicTime.asSeconds()*100)/100;
-                            global_time_printed = std::to_string(global_time);
-                        }
         
-                        if(frameTime >physicTime){
-                            mygame.reset_finish();
-                            mygame.updateGraphics(physicTime);
+                        if(frameTime >mygame.physicsTime){
+                            //mygame.reset_finish();
+                            mygame.updateGraphics(mygame.physicsTime);
                             mygame.updatePhysics();
-                            mygame.is_finished_run();
+                            //mygame.is_finished_run();
+                            if(i%10==0){
+                                mygame.fps();
+                            }
 
                             //mouse position:
                             sf::Vector2i localPosition = sf::Mouse::getPosition(PLAY);
                             mygame.updateAdders(localPosition);
 
-                            physicTime += PHYSICS_TIME_STEP;
+                            //physicTime += PHYSICS_TIME_STEP;
                             frameTime = global_clock.getElapsedTime();
                             }
 
@@ -195,8 +157,8 @@ int main(){
                             PLAY.clear();
                             mygame.updateGraphics(frameTime);
                             PLAY.draw(mygame);
-                            PLAY.draw(fps_text);
-                            PLAY.draw(global_time_text);
+                            /* PLAY.draw(fps_text);
+                            PLAY.draw(global_time_text); */
                             OPTIONS.close();
                             PLAY.display();  
                         }

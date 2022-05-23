@@ -30,11 +30,12 @@ class Pod
     int id_;
     int nextCP_, lapCount_;
     float Power_max; //Power maxof the pod
+
     sf::Time chrono; //Time to finish the run
-    double timer;
+    int timer;
+    int timer_complete; //1 if timer set, else 0
     sf::Text chrono_text;
-    int start; //1 if the pod have just started the run, 0 after, used to know if the pod finished the run in is_finished_run
-    int finish;
+    
     
     friend class Game; //allows game to modify pod's private attributes
 };

@@ -13,9 +13,8 @@ Decision::Decision(sf::Vector2f target, float power) : target_(target), power_(p
 Pod::Pod(sf::Vector2f pos, float angle, sf::Vector2f vel) : pos_(pos), vel_(vel), angle_(angle)
 {
     nextCP_ = 1;
-    start = 1;
-    finish = 0;
     lapCount_ = 0;
+    timer_complete = 0;
 
 };
 
