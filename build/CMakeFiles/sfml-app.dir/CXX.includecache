@@ -176,25 +176,3 @@ game.h
 Banana.h
 /home/ensta/IN104V3/repository/src/Banana.h
 
-/home/ensta/IN104V3/repository/src/options.cpp
-options.h
-/home/ensta/IN104V3/repository/src/options.h
-util.h
-/home/ensta/IN104V3/repository/src/util.h
-SFML/Graphics.hpp
--
-SFML/Graphics/Color.hpp
--
-SFML/Graphics/RenderWindow.hpp
--
-SFML/Graphics/Shape.hpp
--
-SFML/Graphics/Text.hpp
--
-SFML/Graphics/Texture.hpp
--
-SFML/Window/Window.hpp
--
-cmath
--
-

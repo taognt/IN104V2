@@ -40,7 +40,7 @@ int main(){
     //Menu
     sf::RenderWindow MENU(sf::VideoMode(1600, 900), "Main Menu", sf::Style::Default, settings);
     MENU.setView(sf::View(sf::Rect(0.f,0.f,16000.f,9000.f)));
-    MainMenu myMenu(MENU.getSize().x, MENU.getSize().y);
+    MainMenu myMenu;
 
     //Default settings
     int IA = 1;

@@ -9,7 +9,7 @@
 #include <SFML/Window/Window.hpp>
 #include <cmath>
 
-MainMenu :: MainMenu(float width, float height)
+MainMenu :: MainMenu()
 {   
     if(!font.loadFromFile("../repository/font/nasa.ttf")){
         printf("No font has been found\n");

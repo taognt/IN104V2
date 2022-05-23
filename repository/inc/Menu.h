@@ -15,7 +15,7 @@ class MainMenu : public sf::Drawable
 {
     public:
     int Max_; //Number of buttons
-    MainMenu(float width, float height);
+    MainMenu();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void MoveUp(); //Function which moveup on the mainMenu[] according to the keyboard
     void MoveDown();
