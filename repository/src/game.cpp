@@ -154,10 +154,11 @@ void Game::updatePhysics()
 {
 
     for (Pod &pod : pods_)
-    {   
+    {      
         //Only the first pod is controlled by keyboard
         if(pod.id_> 1 && Keyboard == 1){
             pod.mode_IA = 1;
+            pod.start = 1;
         }
 
         if(is_reached(pod.pos_, cpPositions[pod.nextCP_])){
@@ -176,6 +177,12 @@ void Game::updatePhysics()
         }
 
         Decision d = pod.getDecision(*this);
+
+
+        //Chrono set as soon as the pod starts
+        if(pod.start == 1){
+            pod.chrono = physicsTime;
+        }
 
         //updatePhysics:
         sf::Vector2f target = d.target_;

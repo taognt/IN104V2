@@ -17,7 +17,7 @@
 #include "pod.h"
 using namespace std;
 
-const unsigned int NUMBER_OF_LAPS = 2;
+const unsigned int NUMBER_OF_LAPS = 1;
 const float RADIUS = 850;
 const float FRICTION_COEFF = 0.85;
 const float ROTA_MAX = M_PI/10.;

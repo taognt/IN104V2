@@ -15,10 +15,11 @@ Pod::Pod(sf::Vector2f pos, float angle, sf::Vector2f vel) : pos_(pos), vel_(vel)
     nextCP_ = 1;
     lapCount_ = 0;
     timer_complete = 0;
+    start =0;
 
 };
 
-Decision Pod::getDecision(Game gameSnapshot) const
+Decision Pod::getDecision(Game gameSnapshot) 
 {   
     //commands IA or Keyboard
     int KB = 1-mode_IA;
@@ -34,17 +35,21 @@ Decision Pod::getDecision(Game gameSnapshot) const
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         left = 1;
+        start += 1;
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         right = 1;
+        start += 1;
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         up = 1;
+        start += 1;
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         down = 1;
+        start += 1;
     }
 
     //Position of the next CP (center)
@@ -63,14 +68,14 @@ Decision Pod::getDecision(Game gameSnapshot) const
         //Gain of 0.7 seconds
         if(nextCP_ == 0){
             position = gameSnapshot.finalCP_.getPosition();
-            /* TS = (RADIUS-300)*((pos_-position)/(norm2(pos_-position)));
-            S = TS + position; */
+            /*  TS = (RADIUS-300)*((pos_-position)/(norm2(pos_-position)));
+            S = TS + position;  */
 
         }
         else{
             position = gameSnapshot.otherCPs_[nextCP_-1].getPosition();
-            /* TS = (RADIUS-300)*((pos_-position)/(norm2(pos_-position)));
-            S = TS + position; */
+             /* TS = (RADIUS-300)*((pos_-position)/(norm2(pos_-position)));
+            S = TS + position;  */
         }
     }
 
