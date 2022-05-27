@@ -23,13 +23,12 @@ class Pod
     public :
     Pod(sf::Vector2f pos, float angle, sf::Vector2f vel = {0, 0});
     Decision getDecision(Game gameSnapshot) ; 
-    bool is_win(Game mygame);//true if pod win the race
     int start;
 
     private :
     sf::Vector2f pos_, vel_; //position and velocity vectors
     float angle_; //angle in radians
-    bool mode_IA;
+    bool mode_IA; //1 if the pod is under IA
     int id_;
     int nextCP_, lapCount_;
     float Power_max; //Power maxof the pod

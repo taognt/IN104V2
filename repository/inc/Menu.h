@@ -19,13 +19,18 @@ class MainMenu : public sf::Drawable
     MainMenu();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void MoveUp(); //Function which moveup on the mainMenu[] according to the keyboard
-    void MoveDown();
+    void MoveDown(); //Function which move down on the mainMenu[] according to the keyboard
     int MainMenuPressed(){
         return Selected;
     };
     ~MainMenu();
     int Released;
     sf::Font font;
+
+    //sounds
+    sf::SoundBuffer buffer;
+    sf::Sound sound_selection;
+    
 
 
     private:

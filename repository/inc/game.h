@@ -20,16 +20,14 @@
 #include "pod.h"
 using namespace std;
 
-const unsigned int NUMBER_OF_LAPS = 3;
+const unsigned int NUMBER_OF_LAPS = 1;
 const float RADIUS = 850;
 const float FRICTION_COEFF = 0.85;
 const float ROTA_MAX = M_PI/10.;
 const sf::Time PHYSICS_TIME_STEP = sf::milliseconds(100);
-const std::string IMAGES_PATH = "../repository/Images/";
-const std::string FONT_PATH = "../repository/";
 const int max_list = 1;
 const int MAX_POD = 4;
-const int FPS = 20.0f;
+const int FPS = 60.0f;
 
 class Game : public sf::Drawable
 {
@@ -38,11 +36,10 @@ class Game : public sf::Drawable
     Game(std::vector<sf::Vector2f> checkpointsPositions, int IA, int Keyboard); //create a Game with predefined checkpoints positions
 
     void addPod(); //can add various arguments here to chose the apparence or the decision making type of the pod
-    void updatePhysics();
+    void updatePhysics(); //Update the game physic
     void updateGraphics(sf::Time frameTime); //changes pods sprites positions and rotations depending on the frame time
     bool is_reached(Pod pod, sf::Vector2f target); //True if pod reached target
     void updateAdders(sf::Vector2i localPosition); //update the adders relatively to the <indow PLAY
-    void reset_finish(); //reset the finish test 
     void fps(); //set new fps string
     int nb_pod; //Nb pod already placed
 
@@ -51,7 +48,6 @@ class Game : public sf::Drawable
     std::string global_time_printed;
     int global_time;
     sf::Text global_time_text;
-
 
     //fps
     float fps_;
@@ -78,7 +74,6 @@ class Game : public sf::Drawable
 
     int nb_lap;
     sf::Text nb_lap_text;
-    int finish = 0; //1 if the pod 1 have finished the run
 
     //Settings
     int IA;

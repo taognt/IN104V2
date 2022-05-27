@@ -27,18 +27,12 @@ CheckPoint::CheckPoint(sf::Vector2f center, unsigned int id) : circle_(600,100)
     }
 
     else{
-        if(id_ == 1){
-            circle_.setFillColor(sf::Color(255,255,255,63));
-
-        }
-        else{
-            circle_.setFillColor(sf::Color(0,0,0,63));
-        }
+        circle_.setFillColor(sf::Color(0,0,0,63));
         
         std::string text_printed = std::to_string(id);
         fillingText_.setString(text_printed);
 
-            //Loading font
+        //Loading font
         if(!font_.loadFromFile("../repository/font/nasa.ttf")){
             printf("No font has been found\n");
         }

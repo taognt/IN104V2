@@ -7,10 +7,10 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Window.hpp>
 
-void scaleToMaxSize(sf::Sprite &object);
-void scaleToMinSize(sf::Sprite &object);
-void scaleByRadius(sf::Sprite &object, float radius);
-void SetOriginToCenter(sf::Shape &object);
+void scaleToMaxSize(sf::Sprite &object); //Scale a sprite
+void scaleToMinSize(sf::Sprite &object); //Scale a sprite
+void scaleByRadius(sf::Sprite &object, float radius); //Scale a sprite according to a radius
+void SetOriginToCenter(sf::Shape &object); //Set the origins of shape to it center
 void SetOriginToCenterSprite(sf::Sprite &object);
 void SetOriginToCenterText(sf::Text &object);
 float norm2(sf::Vector2f v1);

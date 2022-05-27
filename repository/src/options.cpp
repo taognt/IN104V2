@@ -22,6 +22,13 @@ Options :: Options()
     auto rec = Background_sprite.getGlobalBounds();
     Background_sprite.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
 
+    //sounds
+    if (!buffer.loadFromFile("../repository/music/selection3.wav")){
+        printf("no sound found\n");
+    }
+    sound_selection.setBuffer(buffer);
+    sound_selection.setVolume(10);
+
     //controll indication
     controll_indication.setFont(font);
     SetOriginToCenterText(controll_indication);
@@ -97,8 +104,9 @@ void Options::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 }
 
-void Options::MoveUp()
+void Options::MoveUp()  
 {
+    sound_selection.play();
     if(Selected >= 0){
         options_list[Selected].setFillColor(sf::Color::Black); //button selected
         Selected --;
@@ -109,7 +117,9 @@ void Options::MoveUp()
     }
 }
 
-void Options::MoveDown(){
+void Options::MoveDown()
+{
+    sound_selection.play();
     if(Selected < max_options & Selected >=0){
         options_list[Selected].setFillColor(sf::Color::Black);
         Selected ++;

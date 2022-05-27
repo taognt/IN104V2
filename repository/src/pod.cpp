@@ -4,6 +4,7 @@
 #include "util.h"
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include <cstdio>
 
 Decision::Decision(sf::Vector2f target, float power) : target_(target), power_(power)
 {
@@ -20,16 +21,6 @@ Pod::Pod(sf::Vector2f pos, float angle, sf::Vector2f vel) : pos_(pos), vel_(vel)
 
 };
 
-bool Pod::is_win(Game gameSnapshot){
-    bool val = true;
-    for(Pod &pod : gameSnapshot.pods_){
-        if((gameSnapshot.finish != gameSnapshot.nb_pod) || chrono.asSeconds()>pod.chrono.asSeconds()){
-            val = false;
-        }
-    }
-    return val;
-
-}
 
 Decision Pod::getDecision(Game gameSnapshot) 
 {   
@@ -106,18 +97,19 @@ Decision Pod::getDecision(Game gameSnapshot)
         sf::Vector2f pod_target2 = position2 - pos_; //vector pod-target+1
         intensity = (   (prod_scal2(pod_target, pod_target2))/(norm2(pod_target)*norm2(pod_target2))   );
 
-        if(intensity<0.5){
-            intensity = 0.5;
-        }
+        if(intensity<0.3){
+            intensity = 0.3;
+        } 
         else{
             power = intensity*Power_max;
-        }   
+        }  
         }
         position = S;
 
     }
-    if(gameSnapshot.nb_pod==gameSnapshot.finish){
-            power = 0;
+    if(id_ > 1 && lapCount_ == NUMBER_OF_LAPS){                                                             
+            Power_max = 0;
+            power = Power_max; //When a pod is add after one is finished, the latter will not restart
         }
 
     return Decision(position, power);

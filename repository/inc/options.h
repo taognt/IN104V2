@@ -9,6 +9,7 @@
 #include <SFML/Window.hpp>
 #include <vector>
 #include <cmath>
+#include <SFML/Audio.hpp>
 #include "CheckPoint.h"
 #include "pod.h"
 
@@ -19,12 +20,16 @@ class Options : public sf::Drawable
     public : 
     Options();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    void MoveUp();
-    void MoveDown();
+    void MoveUp(); //Function which moveup on the mainMenu[] according to the keyboard
+    void MoveDown(); //Function which move down on the mainMenu[] according to the keyboard
     int OptionPressed(){
         return Selected;
     };
     ~Options();
+
+    //sounds
+    sf::SoundBuffer buffer;
+    sf::Sound sound_selection;
 
     private:
     sf::Font font;

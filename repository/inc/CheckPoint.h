@@ -33,8 +33,8 @@ class FinalCheckPoint : public sf::Drawable
 {
     public :
     FinalCheckPoint(sf::Vector2f center);
-    sf::Vector2f getPosition();
-    void setTextCenterPosition(sf::Text text, sf::Vector2f);
+    sf::Vector2f getPosition(); //Get the position of the CP
+    void setTextCenterPosition(sf::Text text, sf::Vector2f); //Set the text to center position
     void change_color_final(sf::Color color); //Set the outline color of the checkpoint to show the next
 
     private:

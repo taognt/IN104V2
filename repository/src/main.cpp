@@ -48,15 +48,12 @@ int main(){
     int Keyboard_ = 0;
 
     sf::Music music;
-    music.setVolume(20);
+    music.setVolume(40);
 
     if (!music.openFromFile("../repository/music/music.wav")){
                 return -1; // erreur
             }
-    else{
-            printf("Music loaded\n");
-        }
-        music.play();
+    music.play();
 
 
     while (MENU.isOpen()) {
@@ -79,6 +76,7 @@ int main(){
                 }
 
                 if(event.key.code == sf::Keyboard::Space){
+                    myMenu.sound_selection.play();
                     sf::RenderWindow PLAY(sf::VideoMode(1600, 900), "Game", sf::Style::Default, settings);
                     PLAY.setView(sf::View(sf::Rect(0.f, 0.f, 16000.f, 9000.f)));
                     sf::RenderWindow OPTIONS(sf::VideoMode(1600, 900), "Options", sf::Style::Default, settings);
@@ -168,7 +166,6 @@ int main(){
 
 
                             PLAY.clear();
-                            mygame.updateGraphics(frameTime);
                             PLAY.draw(mygame);
                             OPTIONS.close();
                             PLAY.display();  
@@ -199,6 +196,7 @@ int main(){
                                 
 
                                     if(event.key.code == sf::Keyboard::Space){
+                                        myOptions.sound_selection.play();
                                         int x2 = myOptions.OptionPressed();
 
                                         //IA is pressed

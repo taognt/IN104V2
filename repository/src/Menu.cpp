@@ -24,6 +24,13 @@ MainMenu :: MainMenu()
     Background_sprite.setTexture(Background_texture);
     auto rec = Background_sprite.getGlobalBounds();
     Background_sprite.scale(sf::Vector2f(16000/rec.width, 9000/rec.height));  //Resizing
+    
+    //sounds
+    if (!buffer.loadFromFile("../repository/music/selection3.wav")){
+        printf("no sound found\n");
+    }
+    sound_selection.setBuffer(buffer);
+    sound_selection.setVolume(10);
 
     //controll indication
     controll_indication.setFont(font);
@@ -84,7 +91,8 @@ void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 void MainMenu::MoveUp()
-{
+{   
+    sound_selection.play();
     if(Selected >= 0){
         mainMenu[Selected].setFillColor(sf::Color::Black); //button reset to black
         Selected --;
@@ -95,7 +103,9 @@ void MainMenu::MoveUp()
     }
 }
 
-void MainMenu::MoveDown(){
+void MainMenu::MoveDown()
+{
+    sound_selection.play();
     if(Selected < max_main_menu & Selected >=0){
         mainMenu[Selected].setFillColor(sf::Color::Black);
         Selected ++;

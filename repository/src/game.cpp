@@ -48,7 +48,11 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
     Keyboard = Keyboard_;
 
     //sounds
-    //if(CP_sound_buffer.loadFromFile("const std::string &filename"))
+    if(!CP_sound_buffer.loadFromFile("../repository/music/CP.wav")){
+        printf("No sounds found\n");
+    }
+    CP_sound.setBuffer(CP_sound_buffer);
+    CP_sound.setVolume(50);
 
     //laps
     nb_lap_text.setFont(font);
@@ -123,7 +127,7 @@ void Game::addPod() //add a pod on the first checkpoint
 
     if(i==0){
         podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png");
-        pod.Power_max = 150;
+        pod.Power_max = 130;
         pod.colorCP = sf::Color(255,255,255,63);
     }
     if(i==1){
@@ -133,12 +137,12 @@ void Game::addPod() //add a pod on the first checkpoint
     }
     if(i==2){
         podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png"); //If texture different to i=0 : when the pod appears, the textrure i=0 changes (I dont understand why)
-        pod.Power_max = 90;
+        pod.Power_max = 100;
         pod.colorCP = sf::Color(0,255,0,63);
     }
     if(i==3){
         podsTextures_[i].loadFromFile("../repository/Images/NMSFighterY.png");
-        pod.Power_max = 100;
+        pod.Power_max = 150;
         pod.colorCP = sf::Color(0,0,255,63);
     }
     if(i==4){
@@ -175,14 +179,19 @@ void Game::updatePhysics()
 
         if(is_reached(pod, cpPositions[pod.nextCP_])){
             pod.nextCP_ +=1;
-            pod.passed1 = 1;
+            pod.passed1 = 1; 
+            if(Keyboard == 1 && pod.id_ == 1){
+                CP_sound.play(); //sound as soon as the CP is passed
+            }
 
             if(pod.nextCP_== (int)cpPositions.size()){
-                pod.nextCP_ = 0;
-                finalCP_.change_color_final(pod.colorCP); //Change the color of the next CP
-                otherCPs_[otherCPs_.size()-1].change_color(sf::Color(0,0,0,63)); //Reset the color of the passed CP
+                pod.nextCP_ = 0; //Cycle in the CP
+                if(pod.id_ ==1){
+                    finalCP_.change_color_final(pod.colorCP); //Change the color of the next CP
+                    otherCPs_[otherCPs_.size()-1].change_color(sf::Color(0,0,0,63)); //Reset the color of the passed CP
+                }
             }
-            else{
+            else if(Keyboard == 1 &&pod.id_ ==1){
                 otherCPs_[pod.nextCP_-1].change_color(pod.colorCP);
                 if(pod.nextCP_==1){
                     finalCP_.change_color_final(sf::Color(0,0,0,63));
@@ -199,11 +208,7 @@ void Game::updatePhysics()
                 if(pod.id_== 1){
                     nb_lap +=1;
                 }
-                if(nb_lap == NUMBER_OF_LAPS){
-                    finish += 1;
-                }
             }
-
 
         }
         
@@ -214,26 +219,24 @@ void Game::updatePhysics()
         if(pod.start == 1){
             pod.chrono = physicsTime;
         }
-        pod.start = 2;
+        pod.start = 2; //Set a value different to 1 and 0
 
         //updatePhysics:
         sf::Vector2f target = d.target_;
         float power = d.power_;
         sf::Vector2f diff;
         diff = target - pod.pos_;
-
         float norm_ = norm2(diff);
         //Relatively to the formula
         if(norm_ != 0){
-            pod.vel_.x = FRICTION_COEFF*(pod.vel_.x + power*   ( (target.x - pod.pos_.x)/norm2(diff)));
-            pod.vel_.y = FRICTION_COEFF*(pod.vel_.y + power*((target.y - pod.pos_.y)/norm2(diff)));
+            pod.vel_ = FRICTION_COEFF*(pod.vel_+power*((target-pod.pos_)/norm_));
         }
         else{
             pod.vel_ = FRICTION_COEFF*pod.vel_;
         }
 
-        if(pod.vel_.x != 0){
-            if (pod.vel_.x < 0) pod.angle_ = M_PI + std::atan(pod.vel_.y/pod.vel_.x);
+        if(pod.vel_.x != 0){ //Angle of the pod
+            if (pod.vel_.x < 0) pod.angle_ = M_PI + std::atan(pod.vel_.y/pod.vel_.x); //Mod pi
             else pod.angle_ = std::atan(pod.vel_.y/pod.vel_.x);
         }
         pod.pos_ = pod.pos_ + pod.vel_;
@@ -334,7 +337,6 @@ bool Game::is_reached(Pod pod, sf::Vector2f target){
     return val;
 }
 
-
  
 void Game::fps(){
     //fps
@@ -348,6 +350,8 @@ void Game::fps(){
 }
 
 
+
+// ----------------------------------------------------------- Code that did not work---------------------------------------------
 /* bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos){
     float radius = 850;
     bool val;
