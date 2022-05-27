@@ -8,6 +8,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Window.hpp>
+#include <SFML/Audio.hpp>
 
 #define max_main_menu 3 //Nombre de bouttons
 

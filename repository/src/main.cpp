@@ -10,6 +10,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Window.hpp>
+#include <SFML/Audio.hpp>
 
 
 #include <cmath>
@@ -46,6 +47,17 @@ int main(){
     int IA = 1;
     int Keyboard_ = 0;
 
+    sf::Music music;
+    music.setVolume(20);
+
+    if (!music.openFromFile("../repository/music/music.wav")){
+                return -1; // erreur
+            }
+    else{
+            printf("Music loaded\n");
+        }
+        music.play();
+
 
     while (MENU.isOpen()) {
         sf::Event event;
@@ -53,6 +65,7 @@ int main(){
             if(event.type == sf::Event::Closed){
                 MENU.close();
             }
+
 
             if(event.type == sf::Event::KeyReleased){
                 if(event.key.code == sf::Keyboard::Up){
@@ -123,6 +136,7 @@ int main(){
                                 if(event.type == sf::Event::KeyPressed){
                                     if(event.key.code == sf::Keyboard::Escape){
                                         PLAY.close();
+                                        mygame.nb_lap = 0;
                                     }
                                 }
                             }

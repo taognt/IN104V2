@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Vector2.hpp>
 #include "util.h"
@@ -12,6 +13,7 @@ class CheckPoint : public sf::Drawable
     public :
     CheckPoint(sf::Vector2f center, unsigned int id); //creates a Checkpoint from a position and its number
     sf::Vector2f getPosition(); //returns Checkpoint's position
+    void change_color(sf::Color color); //Set the outline color of the checkpoint to show the next
 
 
     //private:
@@ -33,6 +35,7 @@ class FinalCheckPoint : public sf::Drawable
     FinalCheckPoint(sf::Vector2f center);
     sf::Vector2f getPosition();
     void setTextCenterPosition(sf::Text text, sf::Vector2f);
+    void change_color_final(sf::Color color); //Set the outline color of the checkpoint to show the next
 
     private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

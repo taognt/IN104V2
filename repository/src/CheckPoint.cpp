@@ -1,3 +1,4 @@
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -24,8 +25,16 @@ CheckPoint::CheckPoint(sf::Vector2f center, unsigned int id) : circle_(600,100)
         Flag_.setPosition(center); 
         scaleByRadius(Flag_, 850);
     }
+
     else{
-        circle_.setFillColor(sf::Color(0,0,0,63));
+        if(id_ == 1){
+            circle_.setFillColor(sf::Color(255,255,255,63));
+
+        }
+        else{
+            circle_.setFillColor(sf::Color(0,0,0,63));
+        }
+        
         std::string text_printed = std::to_string(id);
         fillingText_.setString(text_printed);
 
@@ -57,6 +66,16 @@ void CheckPoint::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(circle_, states);
     target.draw(fillingText_);
 };
+
+void CheckPoint::change_color(sf::Color color){
+    circle_.setFillColor(color);
+
+}
+
+void FinalCheckPoint::change_color_final(sf::Color color){
+    circle_.setFillColor(color);
+
+}
 
 sf::Vector2f CheckPoint::getPosition()
 {
@@ -94,3 +113,4 @@ sf::Vector2f FinalCheckPoint::getPosition()
 {
     return circle_.getPosition();
 }
+

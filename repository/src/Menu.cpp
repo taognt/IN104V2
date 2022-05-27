@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Window.hpp>
+#include <SFML/Audio.hpp>
 #include <cmath>
 
 MainMenu :: MainMenu()

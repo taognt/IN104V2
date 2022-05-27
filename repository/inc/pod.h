@@ -1,6 +1,7 @@
 #ifndef INC_POD_H
 #define INC_POD_H
 
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System.hpp>
@@ -22,6 +23,7 @@ class Pod
     public :
     Pod(sf::Vector2f pos, float angle, sf::Vector2f vel = {0, 0});
     Decision getDecision(Game gameSnapshot) ; 
+    bool is_win(Game mygame);//true if pod win the race
     int start;
 
     private :
@@ -31,6 +33,11 @@ class Pod
     int id_;
     int nextCP_, lapCount_;
     float Power_max; //Power maxof the pod
+    float intensity; //Fraction of the power max (20-30-40%, ...)
+    int passed1;
+
+    //Color of the next checkpoint
+    sf::Color colorCP; 
 
     sf::Time chrono; //Time to finish the run
     int timer;

@@ -11,6 +11,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/Audio.hpp>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -45,6 +46,9 @@ Game::Game(std::vector<sf::Vector2f> checkpointsPositions, int IA_, int Keyboard
     //Settings
     IA = IA_;
     Keyboard = Keyboard_;
+
+    //sounds
+    //if(CP_sound_buffer.loadFromFile("const std::string &filename"))
 
     //laps
     nb_lap_text.setFont(font);
@@ -96,6 +100,13 @@ void Game::addPod() //add a pod on the first checkpoint
 
     //mode
     pod.mode_IA = IA;
+    pod.start = IA; //Pod does not start if it is controlled by keyboard, will start as soon as a button is pressed (later)
+
+    //Only the first pod is controlled by keyboard, the others starts with IA
+    if(Keyboard == 1 && nb_pod>=1){
+        pod.mode_IA = 1;
+        pod.start = 1;
+    }
 
     //timer
     pod.chrono = physicsTime;
@@ -113,26 +124,32 @@ void Game::addPod() //add a pod on the first checkpoint
     if(i==0){
         podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png");
         pod.Power_max = 150;
+        pod.colorCP = sf::Color(255,255,255,63);
     }
     if(i==1){
         podsTextures_[i].loadFromFile("../repository/Images/BSGViper.png");
         pod.Power_max = 120;
+        pod.colorCP = sf::Color(255,0,0,63);
     }
     if(i==2){
         podsTextures_[i].loadFromFile("../repository/Images/BSGCylon.png"); //If texture different to i=0 : when the pod appears, the textrure i=0 changes (I dont understand why)
         pod.Power_max = 90;
+        pod.colorCP = sf::Color(0,255,0,63);
     }
     if(i==3){
         podsTextures_[i].loadFromFile("../repository/Images/NMSFighterY.png");
         pod.Power_max = 100;
+        pod.colorCP = sf::Color(0,0,255,63);
     }
     if(i==4){
         podsTextures_[i].loadFromFile("../repository/Images/SWAnakinsPod.png");
         pod.Power_max = 80;
+        pod.colorCP = sf::Color(125,125,0,63);
     }
     if(i==5){
         podsTextures_[i].loadFromFile("../repository/Images/SWMilleniumFalcon.png");
         pod.Power_max = 130;
+        pod.colorCP = sf::Color(0,125,125,63);
     }
 
     //Set up of the pods
@@ -154,28 +171,42 @@ void Game::updatePhysics()
 {
 
     for (Pod &pod : pods_)
-    {      
-        //Only the first pod is controlled by keyboard
-        if(pod.id_> 1 && Keyboard == 1){
-            pod.mode_IA = 1;
-            pod.start = 1;
-        }
+    {   
 
-        if(is_reached(pod.pos_, cpPositions[pod.nextCP_])){
+        if(is_reached(pod, cpPositions[pod.nextCP_])){
             pod.nextCP_ +=1;
+            pod.passed1 = 1;
 
             if(pod.nextCP_== (int)cpPositions.size()){
                 pod.nextCP_ = 0;
+                finalCP_.change_color_final(pod.colorCP); //Change the color of the next CP
+                otherCPs_[otherCPs_.size()-1].change_color(sf::Color(0,0,0,63)); //Reset the color of the passed CP
             }
-            //if nextCP = CP 1 (the 2nd checkpoint), then the race is finished
-            if(pod.nextCP_ == 1){
-                pod.lapCount_ +=1;
-                if(pod.id_==1){
-                    nb_lap +=1;
+            else{
+                otherCPs_[pod.nextCP_-1].change_color(pod.colorCP);
+                if(pod.nextCP_==1){
+                    finalCP_.change_color_final(sf::Color(0,0,0,63));
+                }
+                else{
+                    otherCPs_[pod.nextCP_-2].change_color(sf::Color(0,0,0,63));
                 }
             }
-        }
 
+
+            //if nextCP = CP 1 (the 2nd checkpoint), then a lap is passed
+            if(pod.nextCP_ == 1){
+                pod.lapCount_ +=1;
+                if(pod.id_== 1){
+                    nb_lap +=1;
+                }
+                if(nb_lap == NUMBER_OF_LAPS){
+                    finish += 1;
+                }
+            }
+
+
+        }
+        
         Decision d = pod.getDecision(*this);
 
 
@@ -183,6 +214,7 @@ void Game::updatePhysics()
         if(pod.start == 1){
             pod.chrono = physicsTime;
         }
+        pod.start = 2;
 
         //updatePhysics:
         sf::Vector2f target = d.target_;
@@ -205,6 +237,7 @@ void Game::updatePhysics()
             else pod.angle_ = std::atan(pod.vel_.y/pod.vel_.x);
         }
         pod.pos_ = pod.pos_ + pod.vel_;
+
     }
     physicsTime += PHYSICS_TIME_STEP;
      
@@ -288,7 +321,8 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 
-bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target){
+bool Game::is_reached(Pod pod, sf::Vector2f target){
+    sf::Vector2f new_pos = pod.pos_;
     bool val;
     float radius = 850;
     if(norm2(new_pos - target) <= radius){
@@ -312,6 +346,7 @@ void Game::fps(){
     global_time_printed = std::to_string(global_time);
     global_time_text.setString("Global Time : " +global_time_printed + " s"); 
 }
+
 
 /* bool Game::is_reached(sf::Vector2f new_pos, sf::Vector2f target, sf::Vector2f old_pos){
     float radius = 850;

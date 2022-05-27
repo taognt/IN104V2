@@ -11,6 +11,8 @@ SFML/Graphics.hpp
 -
 SFML/Graphics/CircleShape.hpp
 -
+SFML/Graphics/Color.hpp
+-
 SFML/Graphics/Text.hpp
 -
 SFML/System/Vector2.hpp
@@ -19,6 +21,10 @@ util.h
 /home/ensta/IN104V3/repository/inc/util.h
 
 /home/ensta/IN104V3/repository/inc/game.h
+SFML/Audio/Sound.hpp
+-
+SFML/Audio/SoundBuffer.hpp
+-
 SFML/Graphics.hpp
 -
 SFML/Graphics/Font.hpp
@@ -35,6 +41,8 @@ SFML/System/Clock.hpp
 -
 SFML/System/Vector2.hpp
 -
+SFML/Audio.hpp
+-
 SFML/Window.hpp
 -
 string
@@ -49,6 +57,8 @@ pod.h
 /home/ensta/IN104V3/repository/inc/pod.h
 
 /home/ensta/IN104V3/repository/inc/pod.h
+SFML/Graphics/Color.hpp
+-
 SFML/Graphics/Font.hpp
 -
 SFML/Graphics/Text.hpp

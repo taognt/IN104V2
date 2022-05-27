@@ -63,7 +63,7 @@ target_include_directories(
 
 target_link_libraries(
     sfml-app
-    # -lsfml-audio
+    -lsfml-audio
     # -lsfml-network
     -lsfml-graphics
     -lsfml-window
